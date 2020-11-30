@@ -1,0 +1,34 @@
+<ASSEMBLER_INFO>
+ <VERSION>2.1.57</VERSION>
+ <DEVICE>"ATmega328P"</DEVICE>
+ <WORKING_DIR>C:\Users\Benni\Documents\Atmel Studio\6.2\Lab1\Lab1\Debug</WORKING_DIR>
+ <INCLUDE_PATH>
+  <DIR>C:\Program Files (x86)\Atmel\Atmel Toolchain\AVR Assembler\Native\2.1.1175\avrassembler\Include</DIR>
+  <DIR></DIR>
+ </INCLUDE_PATH>
+ <SOURCE_FILE>C:\Users\Benni\Documents\Atmel Studio\6.2\Lab1\Lab1\Lab1.asm</SOURCE_FILE>
+ <INCLUDED_FILES>
+  <FILE>C:\Program Files (x86)\Atmel\Atmel Toolchain\AVR Assembler\Native\2.1.1175\avrassembler\Include\m328Pdef.inc</FILE>
+ </INCLUDED_FILES>
+ <OBJECT_FILES>
+  <FILE>C:\Users\Benni\Documents\Atmel Studio\6.2\Lab1\Lab1\Debug/Lab1.obj</FILE>
+ </OBJECT_FILES>
+ <HEX_FILES>
+  <FILE>Lab1.hex</FILE>
+ </HEX_FILES>
+ <OUTPUT_FILES>
+  <FILE>Lab1.map</FILE>
+  <FILE>Lab1.lss</FILE>
+ </OUTPUT_FILES>
+ <LABELS>
+  <INIT><FILE>C:\Users\Benni\Documents\Atmel Studio\6.2\Lab1\Lab1\Lab1.asm</FILE><LINE>38</LINE></INIT>
+  <FOREVER><FILE>C:\Users\Benni\Documents\Atmel Studio\6.2\Lab1\Lab1\Lab1.asm</FILE><LINE>13</LINE></FOREVER>
+  <GET_KEY><FILE>C:\Users\Benni\Documents\Atmel Studio\6.2\Lab1\Lab1\Lab1.asm</FILE><LINE>30</LINE></GET_KEY>
+  <LOOP><FILE>C:\Users\Benni\Documents\Atmel Studio\6.2\Lab1\Lab1\Lab1.asm</FILE><LINE>15</LINE></LOOP>
+  <DELAY><FILE>C:\Users\Benni\Documents\Atmel Studio\6.2\Lab1\Lab1\Lab1.asm</FILE><LINE>47</LINE></DELAY>
+  <NOT_10><FILE>C:\Users\Benni\Documents\Atmel Studio\6.2\Lab1\Lab1\Lab1.asm</FILE><LINE>24</LINE></NOT_10>
+  <D_3><FILE>C:\Users\Benni\Documents\Atmel Studio\6.2\Lab1\Lab1\Lab1.asm</FILE><LINE>49</LINE></D_3>
+  <D_2><FILE>C:\Users\Benni\Documents\Atmel Studio\6.2\Lab1\Lab1\Lab1.asm</FILE><LINE>51</LINE></D_2>
+  <D_1><FILE>C:\Users\Benni\Documents\Atmel Studio\6.2\Lab1\Lab1\Lab1.asm</FILE><LINE>53</LINE></D_1>
+ </LABELS>
+</ASSEMBLER_INFO>

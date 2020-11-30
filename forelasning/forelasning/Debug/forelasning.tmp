@@ -1,0 +1,31 @@
+<ASSEMBLER_INFO>
+ <VERSION>2.1.57</VERSION>
+ <DEVICE>"ATmega328P"</DEVICE>
+ <WORKING_DIR>C:\Users\Benni\Documents\Atmel Studio\6.2\forelasning\forelasning\Debug</WORKING_DIR>
+ <INCLUDE_PATH>
+  <DIR>C:\Program Files (x86)\Atmel\Atmel Toolchain\AVR Assembler\Native\2.1.1175\avrassembler\Include</DIR>
+  <DIR></DIR>
+ </INCLUDE_PATH>
+ <SOURCE_FILE>C:\Users\Benni\Documents\Atmel Studio\6.2\forelasning\forelasning\forelasning.asm</SOURCE_FILE>
+ <INCLUDED_FILES>
+  <FILE>C:\Program Files (x86)\Atmel\Atmel Toolchain\AVR Assembler\Native\2.1.1175\avrassembler\Include\m328Pdef.inc</FILE>
+ </INCLUDED_FILES>
+ <OBJECT_FILES>
+  <FILE>C:\Users\Benni\Documents\Atmel Studio\6.2\forelasning\forelasning\Debug/forelasning.obj</FILE>
+ </OBJECT_FILES>
+ <HEX_FILES>
+  <FILE>forelasning.hex</FILE>
+ </HEX_FILES>
+ <OUTPUT_FILES>
+  <FILE>forelasning.map</FILE>
+  <FILE>forelasning.lss</FILE>
+ </OUTPUT_FILES>
+ <LABELS>
+  <TEXT><FILE>C:\Users\Benni\Documents\Atmel Studio\6.2\forelasning\forelasning\forelasning.asm</FILE><LINE>3</LINE></TEXT>
+  <ADDITION><FILE>C:\Users\Benni\Documents\Atmel Studio\6.2\forelasning\forelasning\forelasning.asm</FILE><LINE>5</LINE></ADDITION>
+  <POINT_SRAM><FILE>C:\Users\Benni\Documents\Atmel Studio\6.2\forelasning\forelasning\forelasning.asm</FILE><LINE>18</LINE></POINT_SRAM>
+  <READFLASH><FILE>C:\Users\Benni\Documents\Atmel Studio\6.2\forelasning\forelasning\forelasning.asm</FILE><LINE>24</LINE></READFLASH>
+  <NEXT><FILE>C:\Users\Benni\Documents\Atmel Studio\6.2\forelasning\forelasning\forelasning.asm</FILE><LINE>27</LINE></NEXT>
+  <EXIT><FILE>C:\Users\Benni\Documents\Atmel Studio\6.2\forelasning\forelasning\forelasning.asm</FILE><LINE>35</LINE></EXIT>
+ </LABELS>
+</ASSEMBLER_INFO>

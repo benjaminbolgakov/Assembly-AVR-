@@ -1,0 +1,20 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Atmel Studio Solution File, Format Version 11.00
+Project("{18226A42-8477-4023-8AD2-40C49DA407C9}") = "forelasning7", "forelasning7\forelasning7.asmproj", "{40372DA6-8208-4E24-AF90-8FCDE4F63524}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|AVR = Debug|AVR
+		Release|AVR = Release|AVR
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{40372DA6-8208-4E24-AF90-8FCDE4F63524}.Debug|AVR.ActiveCfg = Debug|AVR
+		{40372DA6-8208-4E24-AF90-8FCDE4F63524}.Debug|AVR.Build.0 = Debug|AVR
+		{40372DA6-8208-4E24-AF90-8FCDE4F63524}.Release|AVR.ActiveCfg = Release|AVR
+		{40372DA6-8208-4E24-AF90-8FCDE4F63524}.Release|AVR.Build.0 = Release|AVR
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

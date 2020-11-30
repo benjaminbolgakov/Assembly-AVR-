@@ -1,0 +1,34 @@
+<ASSEMBLER_INFO>
+ <VERSION>2.1.57</VERSION>
+ <DEVICE>"ATmega328P"</DEVICE>
+ <WORKING_DIR>C:\Users\Benni\Documents\Atmel Studio\6.2\ovningsuppgifter\ovningsuppgifter\Debug</WORKING_DIR>
+ <INCLUDE_PATH>
+  <DIR>C:\Program Files (x86)\Atmel\Atmel Toolchain\AVR Assembler\Native\2.1.1175\avrassembler\Include</DIR>
+  <DIR></DIR>
+ </INCLUDE_PATH>
+ <SOURCE_FILE>C:\Users\Benni\Documents\Atmel Studio\6.2\ovningsuppgifter\ovningsuppgifter\ovningsuppgifter.asm</SOURCE_FILE>
+ <INCLUDED_FILES>
+  <FILE>C:\Program Files (x86)\Atmel\Atmel Toolchain\AVR Assembler\Native\2.1.1175\avrassembler\Include\m328Pdef.inc</FILE>
+ </INCLUDED_FILES>
+ <OBJECT_FILES>
+  <FILE>C:\Users\Benni\Documents\Atmel Studio\6.2\ovningsuppgifter\ovningsuppgifter\Debug/ovningsuppgifter.obj</FILE>
+ </OBJECT_FILES>
+ <HEX_FILES>
+  <FILE>ovningsuppgifter.hex</FILE>
+ </HEX_FILES>
+ <OUTPUT_FILES>
+  <FILE>ovningsuppgifter.map</FILE>
+  <FILE>ovningsuppgifter.lss</FILE>
+ </OUTPUT_FILES>
+ <LABELS>
+  <START><FILE>C:\Users\Benni\Documents\Atmel Studio\6.2\ovningsuppgifter\ovningsuppgifter\ovningsuppgifter.asm</FILE><LINE>1</LINE></START>
+  <TASK8><FILE>C:\Users\Benni\Documents\Atmel Studio\6.2\ovningsuppgifter\ovningsuppgifter\ovningsuppgifter.asm</FILE><LINE>37</LINE></TASK8>
+  <TASK1><FILE>C:\Users\Benni\Documents\Atmel Studio\6.2\ovningsuppgifter\ovningsuppgifter\ovningsuppgifter.asm</FILE><LINE>4</LINE></TASK1>
+  <TASK2><FILE>C:\Users\Benni\Documents\Atmel Studio\6.2\ovningsuppgifter\ovningsuppgifter\ovningsuppgifter.asm</FILE><LINE>9</LINE></TASK2>
+  <TASK3><FILE>C:\Users\Benni\Documents\Atmel Studio\6.2\ovningsuppgifter\ovningsuppgifter\ovningsuppgifter.asm</FILE><LINE>12</LINE></TASK3>
+  <TASK4><FILE>C:\Users\Benni\Documents\Atmel Studio\6.2\ovningsuppgifter\ovningsuppgifter\ovningsuppgifter.asm</FILE><LINE>18</LINE></TASK4>
+  <TASK5><FILE>C:\Users\Benni\Documents\Atmel Studio\6.2\ovningsuppgifter\ovningsuppgifter\ovningsuppgifter.asm</FILE><LINE>24</LINE></TASK5>
+  <TASK6><FILE>C:\Users\Benni\Documents\Atmel Studio\6.2\ovningsuppgifter\ovningsuppgifter\ovningsuppgifter.asm</FILE><LINE>29</LINE></TASK6>
+  <TASK7><FILE>C:\Users\Benni\Documents\Atmel Studio\6.2\ovningsuppgifter\ovningsuppgifter\ovningsuppgifter.asm</FILE><LINE>33</LINE></TASK7>
+ </LABELS>
+</ASSEMBLER_INFO>

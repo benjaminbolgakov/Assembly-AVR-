@@ -1,0 +1,33 @@
+<ASSEMBLER_INFO>
+ <VERSION>2.1.57</VERSION>
+ <DEVICE>"ATmega328P"</DEVICE>
+ <WORKING_DIR>C:\Users\Benni\Documents\Atmel Studio\6.2\Lektion1\Lektion1\Debug</WORKING_DIR>
+ <INCLUDE_PATH>
+  <DIR>C:\Program Files (x86)\Atmel\Atmel Toolchain\AVR Assembler\Native\2.1.1175\avrassembler\Include</DIR>
+  <DIR></DIR>
+ </INCLUDE_PATH>
+ <SOURCE_FILE>C:\Users\Benni\Documents\Atmel Studio\6.2\Lektion1\Lektion1\Lektion1.asm</SOURCE_FILE>
+ <INCLUDED_FILES>
+  <FILE>C:\Program Files (x86)\Atmel\Atmel Toolchain\AVR Assembler\Native\2.1.1175\avrassembler\Include\m328Pdef.inc</FILE>
+ </INCLUDED_FILES>
+ <OBJECT_FILES>
+  <FILE>C:\Users\Benni\Documents\Atmel Studio\6.2\Lektion1\Lektion1\Debug/Lektion1.obj</FILE>
+ </OBJECT_FILES>
+ <HEX_FILES>
+  <FILE>Lektion1.hex</FILE>
+ </HEX_FILES>
+ <OUTPUT_FILES>
+  <FILE>Lektion1.map</FILE>
+  <FILE>Lektion1.lss</FILE>
+ </OUTPUT_FILES>
+ <LABELS>
+  <START><FILE>C:\Users\Benni\Documents\Atmel Studio\6.2\Lektion1\Lektion1\Lektion1.asm</FILE><LINE>3</LINE></START>
+  <HW_INIT><FILE>C:\Users\Benni\Documents\Atmel Studio\6.2\Lektion1\Lektion1\Lektion1.asm</FILE><LINE>9</LINE></HW_INIT>
+  <MAIN><FILE>C:\Users\Benni\Documents\Atmel Studio\6.2\Lektion1\Lektion1\Lektion1.asm</FILE><LINE>16</LINE></MAIN>
+  <DELAY_8bit><FILE>C:\Users\Benni\Documents\Atmel Studio\6.2\Lektion1\Lektion1\Lektion1.asm</FILE><LINE>35</LINE></DELAY_8bit>
+  <NOT_RELEASED><FILE>C:\Users\Benni\Documents\Atmel Studio\6.2\Lektion1\Lektion1\Lektion1.asm</FILE><LINE>29</LINE></NOT_RELEASED>
+  <L_1><FILE>C:\Users\Benni\Documents\Atmel Studio\6.2\Lektion1\Lektion1\Lektion1.asm</FILE><LINE>37</LINE></L_1>
+  <DELAY_16bit><FILE>C:\Users\Benni\Documents\Atmel Studio\6.2\Lektion1\Lektion1\Lektion1.asm</FILE><LINE>42</LINE></DELAY_16bit>
+  <L_2><FILE>C:\Users\Benni\Documents\Atmel Studio\6.2\Lektion1\Lektion1\Lektion1.asm</FILE><LINE>45</LINE></L_2>
+ </LABELS>
+</ASSEMBLER_INFO>
