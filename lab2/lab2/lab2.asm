@@ -6,7 +6,8 @@
 		jmp		INIT
 
 //Define the ascii table
-BTAB:	.db $60,$88,$A8,$90,$40,$28,$D0,$08,$20,$78,$B0,$48,$E0,$A0,$F0,$68,$D8,$50,$10,$C0,$30,$18,$70,$98,$B8,$C8
+BTAB:	
+		.db $60,$88,$A8,$90,$40,$28,$D0,$08,$20,$78,$B0,$48,$E0,$A0,$F0,$68,$D8,$50,$10,$C0,$30,$18,$70,$98,$B8,$C8
 
 //Message to be printed
 TEXT:	
@@ -18,28 +19,34 @@ TEXT:
 
 INIT:
 		ldi		r18,$FF
-		out		DDRB,r16
-		ldi		ZH,HIGH(TEXT*2) //+N parameter
+		out		DDRB,r18
+		ldi		ZH,HIGH(TEXT*2)
 		ldi		ZL,LOW(TEXT*2)
 
 //Get a character from string
 GET_CHAR:
 		lpm		r16,Z+
+		cpi		r16,$00		;Determine if the string is empty
+		breq	STOP		;Stop if whole byte is empty
 		call	LOOKUP
 
 
 //Look up the defining "sound" of an ASCII and return it's binary 
 LOOKUP:
-		cpi		r16,0		;Determine if the string is empty
-		breq	STOP		;Stop if whole byte is empty
-		call	SEND
+		ldi		r17,$41
+		sub		r16,r17		;Decode ASCII to binary by subtracting $41 which leaves the indexing values for the table (0,1,2,3...etc)
+		call	SEND		;Send with decoded ascii via parameter?
 		
 
 //Send and process character
 SEND:
-		sbi		PORTB,4		;Signal Summer to activate
+		ldi		XH,HIGH(BTAB*2)
+		ldi		XL,LOW(BTAB*2)
+		ld		r20,X
+		add		r20,r16			;Create the correct index
+		sbi		PORTB,4			;Signal Summer to activate
 		call	DELAY
-		call	NOBEEP		;pause after character
+		call	NOBEEP			;pause after character
 
 //Silence after each character
 NOBEEP:
