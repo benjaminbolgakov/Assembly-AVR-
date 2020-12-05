@@ -21,19 +21,21 @@
   <FILE>lab2.lss</FILE>
  </OUTPUT_FILES>
  <LABELS>
-  <INIT><FILE>C:\Users\Benni\Documents\Atmel Studio\6.2\lab2\lab2\lab2.asm</FILE><LINE>20</LINE></INIT>
+  <INIT><FILE>C:\Users\Benni\Documents\Atmel Studio\6.2\lab2\lab2\lab2.asm</FILE><LINE>18</LINE></INIT>
   <BTAB><FILE>C:\Users\Benni\Documents\Atmel Studio\6.2\lab2\lab2\lab2.asm</FILE><LINE>9</LINE></BTAB>
-  <TEXT><FILE>C:\Users\Benni\Documents\Atmel Studio\6.2\lab2\lab2\lab2.asm</FILE><LINE>13</LINE></TEXT>
-  <GET_CHAR><FILE>C:\Users\Benni\Documents\Atmel Studio\6.2\lab2\lab2\lab2.asm</FILE><LINE>27</LINE></GET_CHAR>
-  <STOP><FILE>C:\Users\Benni\Documents\Atmel Studio\6.2\lab2\lab2\lab2.asm</FILE><LINE>60</LINE></STOP>
-  <LOOKUP><FILE>C:\Users\Benni\Documents\Atmel Studio\6.2\lab2\lab2\lab2.asm</FILE><LINE>35</LINE></LOOKUP>
-  <SEND><FILE>C:\Users\Benni\Documents\Atmel Studio\6.2\lab2\lab2\lab2.asm</FILE><LINE>42</LINE></SEND>
-  <DELAY><FILE>C:\Users\Benni\Documents\Atmel Studio\6.2\lab2\lab2\lab2.asm</FILE><LINE>75</LINE></DELAY>
-  <NOBEEP><FILE>C:\Users\Benni\Documents\Atmel Studio\6.2\lab2\lab2\lab2.asm</FILE><LINE>52</LINE></NOBEEP>
-  <TEST><FILE>C:\Users\Benni\Documents\Atmel Studio\6.2\lab2\lab2\lab2.asm</FILE><LINE>65</LINE></TEST>
-  <CLOSE><FILE>C:\Users\Benni\Documents\Atmel Studio\6.2\lab2\lab2\lab2.asm</FILE><LINE>70</LINE></CLOSE>
-  <D_3><FILE>C:\Users\Benni\Documents\Atmel Studio\6.2\lab2\lab2\lab2.asm</FILE><LINE>77</LINE></D_3>
-  <D_2><FILE>C:\Users\Benni\Documents\Atmel Studio\6.2\lab2\lab2\lab2.asm</FILE><LINE>79</LINE></D_2>
-  <D_1><FILE>C:\Users\Benni\Documents\Atmel Studio\6.2\lab2\lab2\lab2.asm</FILE><LINE>81</LINE></D_1>
+  <TEXT><FILE>C:\Users\Benni\Documents\Atmel Studio\6.2\lab2\lab2\lab2.asm</FILE><LINE>12</LINE></TEXT>
+  <GET_CHAR><FILE>C:\Users\Benni\Documents\Atmel Studio\6.2\lab2\lab2\lab2.asm</FILE><LINE>25</LINE></GET_CHAR>
+  <STOP><FILE>C:\Users\Benni\Documents\Atmel Studio\6.2\lab2\lab2\lab2.asm</FILE><LINE>83</LINE></STOP>
+  <LOOKUP><FILE>C:\Users\Benni\Documents\Atmel Studio\6.2\lab2\lab2\lab2.asm</FILE><LINE>33</LINE></LOOKUP>
+  <INDEX><FILE>C:\Users\Benni\Documents\Atmel Studio\6.2\lab2\lab2\lab2.asm</FILE><LINE>45</LINE></INDEX>
+  <SEND><FILE>C:\Users\Benni\Documents\Atmel Studio\6.2\lab2\lab2\lab2.asm</FILE><LINE>51</LINE></SEND>
+  <BEEP><FILE>C:\Users\Benni\Documents\Atmel Studio\6.2\lab2\lab2\lab2.asm</FILE><LINE>65</LINE></BEEP>
+  <PAUSELONG><FILE>C:\Users\Benni\Documents\Atmel Studio\6.2\lab2\lab2\lab2.asm</FILE><LINE>77</LINE></PAUSELONG>
+  <BEEPLONG><FILE>C:\Users\Benni\Documents\Atmel Studio\6.2\lab2\lab2\lab2.asm</FILE><LINE>58</LINE></BEEPLONG>
+  <PAUSE><FILE>C:\Users\Benni\Documents\Atmel Studio\6.2\lab2\lab2\lab2.asm</FILE><LINE>72</LINE></PAUSE>
+  <DELAY><FILE>C:\Users\Benni\Documents\Atmel Studio\6.2\lab2\lab2\lab2.asm</FILE><LINE>87</LINE></DELAY>
+  <D_3><FILE>C:\Users\Benni\Documents\Atmel Studio\6.2\lab2\lab2\lab2.asm</FILE><LINE>89</LINE></D_3>
+  <D_2><FILE>C:\Users\Benni\Documents\Atmel Studio\6.2\lab2\lab2\lab2.asm</FILE><LINE>91</LINE></D_2>
+  <D_1><FILE>C:\Users\Benni\Documents\Atmel Studio\6.2\lab2\lab2\lab2.asm</FILE><LINE>93</LINE></D_1>
  </LABELS>
 </ASSEMBLER_INFO>

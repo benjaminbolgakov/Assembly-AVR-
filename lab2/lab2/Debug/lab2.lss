@@ -1,5 +1,5 @@
 
-AVRASM ver. 2.1.57  C:\Users\Benni\Documents\Atmel Studio\6.2\lab2\lab2\lab2.asm Mon Nov 30 13:04:29 2020
+AVRASM ver. 2.1.57  C:\Users\Benni\Documents\Atmel Studio\6.2\lab2\lab2\lab2.asm Sat Dec 05 19:20:20 2020
 
 [builtin](2): Including file 'C:\Program Files (x86)\Atmel\Atmel Toolchain\AVR Assembler\Native\2.1.1175\avrassembler\Include\m328Pdef.inc'
                  
@@ -989,7 +989,6 @@ AVRASM ver. 2.1.57  C:\Users\Benni\Documents\Atmel Studio\6.2\lab2\lab2\lab2.asm
 000004 940c 0015 		jmp		INIT
                  
                  //Define the ascii table
-                 BTAB:	
 000006 8860
 000007 90a8
 000008 2840
@@ -1002,12 +1001,11 @@ AVRASM ver. 2.1.57  C:\Users\Benni\Documents\Atmel Studio\6.2\lab2\lab2\lab2.asm
 00000f c010
 000010 1830
 000011 9870
-000012 c8b8      		.db $60,$88,$A8,$90,$40,$28,$D0,$08,$20,$78,$B0,$48,$E0,$A0,$F0,$68,$D8,$50,$10,$C0,$30,$18,$70,$98,$B8,$C8
+000012 c8b8      BTAB:	.db $60,$88,$A8,$90,$40,$28,$D0,$08,$20,$78,$B0,$48,$E0,$A0,$F0,$68,$D8,$50,$10,$C0,$30,$18,$70,$98,$B8,$C8
                  
                  //Message to be printed
-                 TEXT:	
-000013 4241
-000014 0043      		.db "ABC",$00
+000013 4341
+000014 0045      TEXT:	.db "ACE",$00
                  
                  //Define frequency 
                  .equ	FREQ = 20
@@ -1016,72 +1014,86 @@ AVRASM ver. 2.1.57  C:\Users\Benni\Documents\Atmel Studio\6.2\lab2\lab2\lab2.asm
                  INIT:
 000015 ef2f      		ldi		r18,$FF
 000016 b924      		out		DDRB,r18
-000017 e0f0      		ldi		ZH,HIGH(TEXT*2) //+N parameter
+000017 e0f0      		ldi		ZH,HIGH(TEXT*2)
 000018 e2e6      		ldi		ZL,LOW(TEXT*2)
                  
                  //Get a character from string
                  GET_CHAR:
 000019 9105      		lpm		r16,Z+
-00001a 3000      		cpi		r16,$00		;Determine if the string is empty
-00001b f0a1      		breq	STOP		;Stop if whole byte is empty
-00001c 940e 001e 		call	LOOKUP
+00001a 3000      		cpi		r16,$00			;Determine if the string is empty
+00001b f0e9      		breq	STOP			;Stop if whole byte is empty
+                 		;jmp		LOOKUP
                  
                  
-                 //Look up the defining "sound" of an ASCII and return it's binary 
+                 //Look up the defining "sound" of an ASCII
                  LOOKUP:
-00001e e411      		ldi		r17,$41
-00001f 1b01      		sub		r16,r17		;Decode ASCII to binary by subtracting $41 which leaves the indexing values for the table (0,1,2,3...etc)
-000020 940e 0022 		call	SEND		;Send with decoded ascii via parameter?
-                 		
+00001c e411      		ldi		r17,$41
+00001d 1b01      		sub		r16,r17			;Find indexing value for the character in BTAB by subtracting $41 (0=A, 1=B, 2=C etc)
+00001e 93ff      		push	r31				;Save the adress for TEXT to the stack
+00001f 93ef      		push	r30				;Save the adress for TEXT to the stack
+000020 e0f0      		ldi		ZH,HIGH(BTAB*2)
+000021 e0ec      		ldi		ZL,LOW(BTAB*2)
+000022 940e 0026 		call	INDEX
+                 				
+000024 91ef      		pop		r30
+000025 91ff      		pop		r31
                  
+                 INDEX:
+000026 9145      		lpm		r20,Z+
+000027 3000      		cpi		r16,$00
+000028 f399      		breq	LOOKUP
+000029 950a      		dec		r16
                  //Send and process character
                  SEND:
-000022 e0b0      		ldi		XH,HIGH(BTAB*2)
-000023 e0ac      		ldi		XL,LOW(BTAB*2)
-000024 914c      		ld		r20,X
-000025 0f40      		add		r20,r16			;Create the correct index
-000026 9a2c      		sbi		PORTB,4			;Signal Summer to activate
-000027 940e 0035 		call	DELAY
-000029 940e 002b 		call	NOBEEP			;pause after character
+00002a 0f44      		lsl		r20				;Shift out msb to carry to be analysed
+00002b f428      		brcc	BEEP			;Beep a short signal if carry is equal to 0	
+                 								;At this point the carry is set, which means it might be the end of the char
+00002c 3040      		cpi		r20,$00			;Determine if the string is empty
+00002d f049      		breq	PAUSELONG		;Do long pause if string was empty
+                 		
+                 BEEPLONG:
+00002e 9a2c      		sbi		PORTB,4			
+                 		;call	DELAY
+                 		;call	DELAY
+                 		;call	DELAY
+00002f 940c 0034 		jmp		PAUSE			;pause after character
+                 
+                 BEEP:	;Fix with argument, to beep long or short here
+000031 9a2c      		sbi		PORTB,4			
+                 		;call	DELAY
+000032 940c 0034 		jmp		PAUSE			;pause after character
+                 
                  
                  //Silence after each character
-                 NOBEEP:
-00002b 982c      		cbi		PORTB,4		;Signal Summer to deactivate
-00002c 940e 0035 		call	DELAY
-00002e 940c 0019 		jmp		GET_CHAR
+                 PAUSE:
+000034 982c      		cbi		PORTB,4			;Signal Summer to deactivate
+                 		;call	DELAY
+000035 940c 002a 		jmp		SEND			;Return and continue processing char
                  
-                 
-                 
-                 
+                 PAUSELONG:
+                 		;call	DELAY
+                 		;call	DELAY
+                 		;call	DELAY
+000037 940c 0019 		jmp		GET_CHAR			;Return and finish the char
+                 		
                  STOP:
-000030 f3f9      		breq	STOP
-                 
-                 
-                 
-                 TEST:
-000031 ef0f      		ldi		r16,$FF
-000032 b904      		out		DDRB,r16
-000033 9a2c      		sbi		PORTB,4
-                 
-                 CLOSE:
-000034 982c      		cbi		PORTB,4
-                 
-                 
+000039 ef0f      		ldi		r16,$FF
+00003a f7f1      		brne	STOP
                  
                  DELAY:
-000035 e023      		ldi		r18,3
+00003b e023      		ldi		r18,3
                  D_3:
-000036 e010      		ldi		r17,0
+00003c e010      		ldi		r17,0
                  D_2:	
-000037 e000      		ldi		r16,0
+00003d e000      		ldi		r16,0
                  D_1:
-000038 950a      		dec		r16
-000039 f7f1      		brne	D_1
-00003a 951a      		dec		r17
-00003b f7d9      		brne	D_2
-00003c 952a      		dec		r18
-00003d f7c1      		brne	D_3
-00003e 9508      		ret
+00003e 950a      		dec		r16
+00003f f7f1      		brne	D_1
+000040 951a      		dec		r17
+000041 f7d9      		brne	D_2
+000042 952a      		dec		r18
+000043 f7c1      		brne	D_3
+000044 9508      		ret
 
 
 RESOURCE USE INFORMATION
@@ -1101,37 +1113,37 @@ counted separately from r26..r31 here.
 "ATmega328P" register use summary:
 r0 :   0 r1 :   0 r2 :   0 r3 :   0 r4 :   0 r5 :   0 r6 :   0 r7 :   0 
 r8 :   0 r9 :   0 r10:   0 r11:   0 r12:   0 r13:   0 r14:   0 r15:   0 
-r16:  12 r17:   4 r18:   4 r19:   0 r20:   2 r21:   0 r22:   0 r23:   0 
-r24:   0 r25:   0 r26:   1 r27:   1 r28:   0 r29:   0 r30:   1 r31:   1 
-x  :   1 y  :   0 z  :   1 
-Registers used: 10 out of 35 (28.6%)
+r16:  12 r17:   4 r18:   4 r19:   0 r20:   3 r21:   0 r22:   0 r23:   0 
+r24:   0 r25:   0 r26:   0 r27:   0 r28:   0 r29:   0 r30:   4 r31:   4 
+x  :   0 y  :   0 z  :   2 
+Registers used: 7 out of 35 (20.0%)
 
 "ATmega328P" instruction use summary:
-.lds  :   0 .sts  :   0 adc   :   0 add   :   1 adiw  :   0 and   :   0 
+.lds  :   0 .sts  :   0 adc   :   0 add   :   0 adiw  :   0 and   :   0 
 andi  :   0 asr   :   0 bclr  :   0 bld   :   0 brbc  :   0 brbs  :   0 
-brcc  :   0 brcs  :   0 break :   0 breq  :   2 brge  :   0 brhc  :   0 
+brcc  :   1 brcs  :   0 break :   0 breq  :   3 brge  :   0 brhc  :   0 
 brhs  :   0 brid  :   0 brie  :   0 brlo  :   0 brlt  :   0 brmi  :   0 
-brne  :   3 brpl  :   0 brsh  :   0 brtc  :   0 brts  :   0 brvc  :   0 
-brvs  :   0 bset  :   0 bst   :   0 call  :   5 cbi   :   2 cbr   :   0 
+brne  :   4 brpl  :   0 brsh  :   0 brtc  :   0 brts  :   0 brvc  :   0 
+brvs  :   0 bset  :   0 bst   :   0 call  :   1 cbi   :   1 cbr   :   0 
 clc   :   0 clh   :   0 cli   :   0 cln   :   0 clr   :   0 cls   :   0 
 clt   :   0 clv   :   0 clz   :   0 com   :   0 cp    :   0 cpc   :   0 
-cpi   :   1 cpse  :   0 dec   :   3 eor   :   0 fmul  :   0 fmuls :   0 
-fmulsu:   0 icall :   0 ijmp  :   0 in    :   0 inc   :   0 jmp   :   2 
-ld    :   1 ldd   :   0 ldi   :  12 lds   :   0 lpm   :   1 lsl   :   0 
+cpi   :   3 cpse  :   0 dec   :   4 eor   :   0 fmul  :   0 fmuls :   0 
+fmulsu:   0 icall :   0 ijmp  :   0 in    :   0 inc   :   0 jmp   :   5 
+ld    :   0 ldd   :   0 ldi   :  12 lds   :   0 lpm   :   2 lsl   :   1 
 lsr   :   0 mov   :   0 movw  :   0 mul   :   0 muls  :   0 mulsu :   0 
-neg   :   0 nop   :   0 or    :   0 ori   :   0 out   :   4 pop   :   0 
-push  :   0 rcall :   0 ret   :   1 reti  :   0 rjmp  :   0 rol   :   0 
+neg   :   0 nop   :   0 or    :   0 ori   :   0 out   :   3 pop   :   2 
+push  :   2 rcall :   0 ret   :   1 reti  :   0 rjmp  :   0 rol   :   0 
 ror   :   0 sbc   :   0 sbci  :   0 sbi   :   2 sbic  :   0 sbis  :   0 
 sbiw  :   0 sbr   :   0 sbrc  :   0 sbrs  :   0 sec   :   0 seh   :   0 
 sei   :   0 sen   :   0 ser   :   0 ses   :   0 set   :   0 sev   :   0 
 sez   :   0 sleep :   0 spm   :   0 st    :   0 std   :   0 sts   :   0 
 sub   :   1 subi  :   0 swap  :   0 tst   :   0 wdr   :   0 
-Instructions used: 15 out of 113 (13.3%)
+Instructions used: 17 out of 113 (15.0%)
 
 "ATmega328P" memory use summary [bytes]:
 Segment   Begin    End      Code   Data   Used    Size   Use%
 ---------------------------------------------------------------
-[.cseg] 0x000000 0x00007e     96     30    126   32768   0.4%
+[.cseg] 0x000000 0x00008a    108     30    138   32768   0.4%
 [.dseg] 0x000100 0x000100      0      0      0    2048   0.0%
 [.eseg] 0x000000 0x000000      0      0      0    1024   0.0%
 
