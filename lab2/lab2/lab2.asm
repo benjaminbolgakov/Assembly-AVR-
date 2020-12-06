@@ -9,10 +9,13 @@
 BTAB:	.db $60,$88,$A8,$90,$40,$28,$D0,$08,$20,$78,$B0,$48,$E0,$A0,$F0,$68,$D8,$50,$10,$C0,$30,$18,$70,$98,$B8,$C8
 
 //Message to be printed
-TEXT:	.db "BEN",$00
+TEXT:	.db "B E",$00
 
 //Define frequency 
 .equ	FREQ = 10
+
+STOP:
+		breq	STOP
 
 
 INIT:
@@ -26,6 +29,7 @@ GET_CHAR:
 		lpm		r16,Z+
 		cpi		r16,$00			;Determine if the string is empty
 		breq	STOP			;Stop if whole byte is empty
+		call	SPACECONTROL
 
 //Look up binary eqvuivalent of loaded ASCII char
 LOOKUP:
@@ -81,6 +85,22 @@ PAUSELONG:
 		jmp		GET_CHAR			;Return and finish the char
 
 
+SPACECONTROL:
+		cpi		r16,$20
+		breq	PAUSESPACE
+		ret
+
+		
+PAUSESPACE:
+		call	DELAY
+		call	DELAY
+		call	DELAY
+		call	DELAY
+		call	DELAY
+		call	DELAY
+		call	DELAY
+		jmp		GET_CHAR
+
 DELAY:
 		ldi		r28,FREQ		
 D_3:
@@ -95,6 +115,3 @@ D_1:
 		dec		r28
 		brne	D_3
 		ret
-
-STOP:
-		breq	STOP
