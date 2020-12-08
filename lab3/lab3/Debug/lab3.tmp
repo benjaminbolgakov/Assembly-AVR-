@@ -1,0 +1,37 @@
+<ASSEMBLER_INFO>
+ <VERSION>2.1.57</VERSION>
+ <DEVICE>"ATmega328P"</DEVICE>
+ <WORKING_DIR>C:\Users\Benni\Documents\Atmel Studio\6.2\lab3\lab3\Debug</WORKING_DIR>
+ <INCLUDE_PATH>
+  <DIR>C:\Program Files (x86)\Atmel\Atmel Toolchain\AVR Assembler\Native\2.1.1175\avrassembler\Include</DIR>
+  <DIR></DIR>
+ </INCLUDE_PATH>
+ <SOURCE_FILE>C:\Users\Benni\Documents\Atmel Studio\6.2\lab3\lab3\lab3.asm</SOURCE_FILE>
+ <INCLUDED_FILES>
+  <FILE>C:\Program Files (x86)\Atmel\Atmel Toolchain\AVR Assembler\Native\2.1.1175\avrassembler\Include\m328Pdef.inc</FILE>
+ </INCLUDED_FILES>
+ <OBJECT_FILES>
+  <FILE>C:\Users\Benni\Documents\Atmel Studio\6.2\lab3\lab3\Debug/lab3.obj</FILE>
+ </OBJECT_FILES>
+ <HEX_FILES>
+  <FILE>lab3.hex</FILE>
+ </HEX_FILES>
+ <OUTPUT_FILES>
+  <FILE>lab3.map</FILE>
+  <FILE>lab3.lss</FILE>
+ </OUTPUT_FILES>
+ <LABELS>
+  <LCD_INIT><FILE>C:\Users\Benni\Documents\Atmel Studio\6.2\lab3\lab3\lab3.asm</FILE><LINE>11</LINE></LCD_INIT>
+  <BACKLIGHT_ON><FILE>C:\Users\Benni\Documents\Atmel Studio\6.2\lab3\lab3\lab3.asm</FILE><LINE>27</LINE></BACKLIGHT_ON>
+  <LCD_WRITE4><FILE>C:\Users\Benni\Documents\Atmel Studio\6.2\lab3\lab3\lab3.asm</FILE><LINE>19</LINE></LCD_WRITE4>
+  <LCD_WRITE8><FILE>C:\Users\Benni\Documents\Atmel Studio\6.2\lab3\lab3\lab3.asm</FILE><LINE>21</LINE></LCD_WRITE8>
+  <LCD_ASCII><FILE>C:\Users\Benni\Documents\Atmel Studio\6.2\lab3\lab3\lab3.asm</FILE><LINE>23</LINE></LCD_ASCII>
+  <LCD_COMMAND><FILE>C:\Users\Benni\Documents\Atmel Studio\6.2\lab3\lab3\lab3.asm</FILE><LINE>25</LINE></LCD_COMMAND>
+  <BACKLIGHT_OFF><FILE>C:\Users\Benni\Documents\Atmel Studio\6.2\lab3\lab3\lab3.asm</FILE><LINE>29</LINE></BACKLIGHT_OFF>
+  <STOP><FILE>C:\Users\Benni\Documents\Atmel Studio\6.2\lab3\lab3\lab3.asm</FILE><LINE>32</LINE></STOP>
+  <WAIT><FILE>C:\Users\Benni\Documents\Atmel Studio\6.2\lab3\lab3\lab3.asm</FILE><LINE>35</LINE></WAIT>
+  <D_3><FILE>C:\Users\Benni\Documents\Atmel Studio\6.2\lab3\lab3\lab3.asm</FILE><LINE>37</LINE></D_3>
+  <D_2><FILE>C:\Users\Benni\Documents\Atmel Studio\6.2\lab3\lab3\lab3.asm</FILE><LINE>39</LINE></D_2>
+  <D_1><FILE>C:\Users\Benni\Documents\Atmel Studio\6.2\lab3\lab3\lab3.asm</FILE><LINE>41</LINE></D_1>
+ </LABELS>
+</ASSEMBLER_INFO>
