@@ -18,7 +18,7 @@ LCD_INIT:
 LCD_WRITE4:
 		sbi		PORTB,E			;
 		out		PORTD,r16		;Output data
-		cbi		PORTB,E			; 
+		cbi		PORTB,E			;Signals to LCD that new data is available
 		call	WAIT			
 		ret
 LCD_WRITE8:

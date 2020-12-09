@@ -26,21 +26,19 @@ INIT:
 
 START:
 		call	GET_CHAR
+		//Check for a space
+		cpi		r16,$20
+		breq	PAUSESPACE
 		call	LOOKUP
 		call	SEND
 		call	PAUSE			;Do a pause of 2+1 time-units between chars
+		jmp		START
 
-//GET_CHAR-------------------------------------------------------------------------//
 GET_CHAR:
 		lpm		r16,Z+
 		cpi		r16,$00			;Determine if the string is empty
 		breq	STOP			;Stop if whole byte is empty
-
-SPACECONTROL:
-		cpi		r16,$20
-		breq	PAUSESPACE
 		ret
-//-------------------------------------------------------------------------GET_CHAR//
 
 //LOOKUP------------------------------------------------------------------------//
 LOOKUP:
@@ -89,21 +87,20 @@ BEEP:
 		jmp		SEND
 
 END:
-		ldi		r22,3			;Set pause-time to 3 units, for the end of this char
+		ldi		r22,2			;Set pause-time to 3 units, for the end of this char
 		ret
 //-------------------------------------------------------------------------SEND//
 
 PAUSESPACE:
-		ldi		r22,7
-		jmp		PAUSE
+		ldi		r22,4			;Perform a 3+4 unit long pause, signifying a space char
+		call	PAUSE
+		jmp		START
 
 PAUSE:
 		call	DELAY
 		dec		r22
 		brne	PAUSE
-		jmp		START			;Start over the process to get next char
-
-
+		ret						;Start over the process to get next char
 
 DELAY:
 		ldi		r28,FREQ		

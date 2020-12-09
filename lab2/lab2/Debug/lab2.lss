@@ -1,5 +1,5 @@
 
-AVRASM ver. 2.1.57  C:\Users\Benni\Documents\Atmel Studio\6.2\lab2\lab2\lab2.asm Sun Dec 06 19:48:49 2020
+AVRASM ver. 2.1.57  C:\Users\Benni\Documents\Atmel Studio\6.2\lab2\lab2\lab2.asm Wed Dec 09 14:49:17 2020
 
 [builtin](2): Including file 'C:\Program Files (x86)\Atmel\Atmel Toolchain\AVR Assembler\Native\2.1.1175\avrassembler\Include\m328Pdef.inc'
                  
@@ -1028,100 +1028,97 @@ AVRASM ver. 2.1.57  C:\Users\Benni\Documents\Atmel Studio\6.2\lab2\lab2\lab2.asm
 000020 e2e6      		ldi		ZL,LOW(TEXT*2)
                  
                  START:
-000021 940e 0029 		call	GET_CHAR
-000023 940e 002f 		call	LOOKUP
-000025 940e 003c 		call	SEND
-000027 940e 0056 		call	PAUSE			;Do a pause of 2+1 time-units between chars
+000021 940e 002d 		call	GET_CHAR
+                 		//Check for a space
+000023 3200      		cpi		r16,$20
+000024 f181      		breq	PAUSESPACE
+000025 940e 0031 		call	LOOKUP
+000027 940e 003e 		call	SEND
+000029 940e 005a 		call	PAUSE			;Do a pause of 2+1 time-units between chars
+00002b 940c 0021 		jmp		START
                  
-                 //GET_CHAR-------------------------------------------------------------------------//
                  GET_CHAR:
-000029 9105      		lpm		r16,Z+
-00002a 3000      		cpi		r16,$00			;Determine if the string is empty
-00002b f381      		breq	STOP			;Stop if whole byte is empty
-                 
-                 SPACECONTROL:
-00002c 3200      		cpi		r16,$20
-00002d f129      		breq	PAUSESPACE
-00002e 9508      		ret
-                 //-------------------------------------------------------------------------GET_CHAR//
+00002d 9105      		lpm		r16,Z+
+00002e 3000      		cpi		r16,$00			;Determine if the string is empty
+00002f f361      		breq	STOP			;Stop if whole byte is empty
+000030 9508      		ret
                  
                  //LOOKUP------------------------------------------------------------------------//
                  LOOKUP:
-00002f e411      		ldi		r17,$41
-000030 1b01      		sub		r16,r17			;Find indexing value for the character in BTAB by subtracting $41 (0=A, 1=B, 2=C etc)
-000031 93ff      		push	r31				;Save the address for TEXT to the stack
-000032 93ef      		push	r30				
-000033 e0f0      		ldi		ZH,HIGH(BTAB*2)	
-000034 e0ec      		ldi		ZL,LOW(BTAB*2)
+000031 e411      		ldi		r17,$41
+000032 1b01      		sub		r16,r17			;Find indexing value for the character in BTAB by subtracting $41 (0=A, 1=B, 2=C etc)
+000033 93ff      		push	r31				;Save the address for TEXT to the stack
+000034 93ef      		push	r30				
+000035 e0f0      		ldi		ZH,HIGH(BTAB*2)	
+000036 e0ec      		ldi		ZL,LOW(BTAB*2)
                  
                  //Increments to the correct index of BTAB
                  INC_INDEX:
-000035 9145      		lpm		r20,Z+
-000036 950a      		dec		r16
-000037 3f0f      		cpi		r16,$FF
-000038 f7e1      		brne	INC_INDEX
-000039 91ef      		pop		r30				;Finished with Z pointer, pop it back to track TEXT chars
-00003a 91ff      		pop		r31
-00003b 9508      		ret	
+000037 9145      		lpm		r20,Z+
+000038 950a      		dec		r16
+000039 3f0f      		cpi		r16,$FF
+00003a f7e1      		brne	INC_INDEX
+00003b 91ef      		pop		r30				;Finished with Z pointer, pop it back to track TEXT chars
+00003c 91ff      		pop		r31
+00003d 9508      		ret	
                  //-------------------------------------------------------------------------LOOKUP//
                  
                  //SEND-------------------------------------------------------------------------//
                  SEND:
-00003c 0f44      		lsl		r20				;Shift out msb to carry to be analysed
-00003d f430      		brcc	SHORT			;Beep a short signal if carry is equal to 0	
+00003e 0f44      		lsl		r20				;Shift out msb to carry to be analysed
+00003f f430      		brcc	SHORT			;Beep a short signal if carry is equal to 0	
                  		;-----------------------;At this point the carry is set, which means it might be the end of the char
-00003e 3040      		cpi		r20,$00			
-00003f f089      		breq	END				;The char is processed, apply the proper pause
+000040 3040      		cpi		r20,$00			
+000041 f089      		breq	END				;The char is processed, apply the proper pause
                  		;-----------------------;
                  LONG:	
-000040 e053      		ldi		r21,3			;Set the length of the beep to 3N
-000041 9a2c      		sbi		PORTB,4
-000042 940c 0048 		jmp		BEEP
+000042 e053      		ldi		r21,3			;Set the length of the beep to 3N
+000043 9a2c      		sbi		PORTB,4
+000044 940c 004a 		jmp		BEEP
                  		
                  SHORT:
-000044 e051      		ldi		r21,1			;Set the length of the beep to 1N
-000045 9a2c      		sbi		PORTB,4
-000046 940c 0048 		jmp		BEEP
+000046 e051      		ldi		r21,1			;Set the length of the beep to 1N
+000047 9a2c      		sbi		PORTB,4
+000048 940c 004a 		jmp		BEEP
                  
                  BEEP:
-000048 940e 005c 		call	DELAY
-00004a 955a      		dec		r21
-00004b f7e1      		brne	BEEP
-00004c 982c      		cbi		PORTB,4
-00004d 940e 005c 		call	DELAY
-00004f 940c 003c 		jmp		SEND
+00004a 940e 005f 		call	DELAY
+00004c 955a      		dec		r21
+00004d f7e1      		brne	BEEP
+00004e 982c      		cbi		PORTB,4
+00004f 940e 005f 		call	DELAY
+000051 940c 003e 		jmp		SEND
                  
                  END:
-000051 e063      		ldi		r22,3			;Set pause-time to 3 units, for the end of this char
-000052 9508      		ret
+000053 e062      		ldi		r22,2			;Set pause-time to 3 units, for the end of this char
+000054 9508      		ret
                  //-------------------------------------------------------------------------SEND//
                  
                  PAUSESPACE:
-000053 e067      		ldi		r22,7
-000054 940c 0056 		jmp		PAUSE
+000055 e064      		ldi		r22,4			;Perform a 3+4 unit long pause, signifying a space char
+000056 940e 005a 		call	PAUSE
+000058 940c 0021 		jmp		START
                  
                  PAUSE:
-000056 940e 005c 		call	DELAY
-000058 956a      		dec		r22
-000059 f7e1      		brne	PAUSE
-00005a 940c 0021 		jmp		START			;Start over the process to get next char
-                 
-                 
+00005a 940e 005f 		call	DELAY
+00005c 956a      		dec		r22
+00005d f7e1      		brne	PAUSE
+00005e 9508      		ret						;Start over the process to get next char
                  
                  DELAY:
-00005c e0c7      		ldi		r28,FREQ		
+00005f e0c7      		ldi		r28,FREQ		
                  D_3:
-00005d e0b0      		ldi		r27,0
+000060 e0b0      		ldi		r27,0
                  D_2:	
-00005e e0a0      		ldi		r26,0
+000061 e0a0      		ldi		r26,0
                  D_1:
-00005f 95aa      		dec		r26
-000060 f7f1      		brne	D_1
-000061 95ba      		dec		r27
-000062 f7d9      		brne	D_2
-000063 95ca      		dec		r28
-000064 f7c1      		brne	D_3
-000065 9508      		ret
+000062 95aa      		dec		r26
+000063 f7f1      		brne	D_1
+000064 95ba      		dec		r27
+000065 f7d9      		brne	D_2
+000066 95ca      		dec		r28
+000067 f7c1      		brne	D_3
+000068 9508      		ret
 
 
 RESOURCE USE INFORMATION
@@ -1152,7 +1149,7 @@ andi  :   0 asr   :   0 bclr  :   0 bld   :   0 brbc  :   0 brbs  :   0
 brcc  :   1 brcs  :   0 break :   0 breq  :   4 brge  :   0 brhc  :   0 
 brhs  :   0 brid  :   0 brie  :   0 brlo  :   0 brlt  :   0 brmi  :   0 
 brne  :   6 brpl  :   0 brsh  :   0 brtc  :   0 brts  :   0 brvc  :   0 
-brvs  :   0 bset  :   0 bst   :   0 call  :   7 cbi   :   1 cbr   :   0 
+brvs  :   0 bset  :   0 bst   :   0 call  :   8 cbi   :   1 cbr   :   0 
 clc   :   0 clh   :   0 cli   :   0 cln   :   0 clr   :   0 cls   :   0 
 clt   :   0 clv   :   0 clz   :   0 com   :   0 cp    :   0 cpc   :   0 
 cpi   :   4 cpse  :   0 dec   :   6 eor   :   0 fmul  :   0 fmuls :   0 
@@ -1160,7 +1157,7 @@ fmulsu:   0 icall :   0 ijmp  :   0 in    :   0 inc   :   0 jmp   :   6
 ld    :   0 ldd   :   0 ldi   :  15 lds   :   0 lpm   :   2 lsl   :   1 
 lsr   :   0 mov   :   0 movw  :   0 mul   :   0 muls  :   0 mulsu :   0 
 neg   :   0 nop   :   0 or    :   0 ori   :   0 out   :   3 pop   :   2 
-push  :   2 rcall :   0 ret   :   4 reti  :   0 rjmp  :   0 rol   :   0 
+push  :   2 rcall :   0 ret   :   5 reti  :   0 rjmp  :   0 rol   :   0 
 ror   :   0 sbc   :   0 sbci  :   0 sbi   :   2 sbic  :   0 sbis  :   0 
 sbiw  :   0 sbr   :   0 sbrc  :   0 sbrs  :   0 sec   :   0 seh   :   0 
 sei   :   0 sen   :   0 ser   :   0 ses   :   0 set   :   0 sev   :   0 
@@ -1171,7 +1168,7 @@ Instructions used: 17 out of 113 (15.0%)
 "ATmega328P" memory use summary [bytes]:
 Segment   Begin    End      Code   Data   Used    Size   Use%
 ---------------------------------------------------------------
-[.cseg] 0x000000 0x0000cc    160     44    204   32768   0.6%
+[.cseg] 0x000000 0x0000d2    166     44    210   32768   0.6%
 [.dseg] 0x000100 0x000100      0      0      0    2048   0.0%
 [.eseg] 0x000000 0x000000      0      0      0    1024   0.0%
 
