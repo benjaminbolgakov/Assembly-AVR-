@@ -1,5 +1,5 @@
 
-AVRASM ver. 2.1.57  C:\Users\Benni\Documents\Atmel Studio\6.2\lab3\lab3\lab3.asm Wed Dec 09 20:05:51 2020
+AVRASM ver. 2.1.57  C:\Users\Benni\Documents\Atmel Studio\6.2\lab3\lab3\lab3.asm Thu Dec 10 23:47:54 2020
 
 [builtin](2): Including file 'C:\Program Files (x86)\Atmel\Atmel Toolchain\AVR Assembler\Native\2.1.1175\avrassembler\Include\m328Pdef.inc'
                  
@@ -982,115 +982,149 @@ AVRASM ver. 2.1.57  C:\Users\Benni\Documents\Atmel Studio\6.2\lab3\lab3\lab3.asm
                  
                  ; ***** END OF FILE ******************************************************
                  
-000000 e008      		ldi		r16,HIGH(RAMEND)
-000001 bf0e      		out		SPH,r16
-000002 ef0f      		ldi		r16,LOW(RAMEND)
-000003 bf0d      		out		SPL,r16
+000000 e008      	ldi		r16,HIGH(RAMEND)
+000001 bf0e      	out		SPH,r16
+000002 ef0f      	ldi		r16,LOW(RAMEND)
+000003 bf0d      	out		SPL,r16
                  
-                 		.equ	FN_SET		= 0b00101000			;4-bit mode, 2 line, 5x8 font
-                 		.equ	DISP_ON		= 0b00001111			;Display on, cursor on, cursor blink
-                 		.equ	LCD_CLR		= 0b00000001			;Clear display
-                 		.equ	E_MODE		= 0b00000110			;Increment cursor, no shift
+                 	.equ	FN_SET		= 0b00101000			;4-bit mode, 2 line, 5x8 font
+                 	.equ	DISP_ON		= 0b00001111			;Display on, cursor on, cursor blink
+                 	.equ	LCD_CLR		= 0b00000001			;Clear display
+                 	.equ	E_MODE		= 0b00000110			;Increment cursor, no shift
                  
-                 		.equ	E			= 1
+                 	.equ	E			= 1
+                 
+000004 3030
+000005 303a
+000006 3a30
+000007 3030
+C:\Users\Benni\Documents\Atmel Studio\6.2\lab3\lab3\lab3.asm(14): warning: .cseg .db misalignment - padding zero byte
+000008 0000      LINE:	.db		"00:00:00",$00
+                 
                  LCD_INIT:
-000004 940e 0054 		call	WAIT			;Delay to let LCD start up
-000006 940e 0036 		call	PORT_INIT
-000008 940e 0054 		call	WAIT
-00000a 940e 0032 		call	BACKLIGHT_ON	
-00000c 940e 0054 		call	WAIT
-00000e 940e 0047 		call	FOURBIT_INIT
-000010 940e 0054 		call	WAIT
-000012 940e 003a 		call	DISP_CONFIG		;Blinking cursor at this point
-000014 e500      		ldi		r16,0b01010000
-000015 940e 002a 		call	LCD_ASCII
+000009 940e 006d 	call	WAIT			;Delay to let LCD start up
+00000b 940e 004f 	call	PORT_INIT
+00000d 940e 004b 	call	BACKLIGHT_ON	
+00000f 940e 006d 	call	WAIT
+000011 940e 0060 	call	FOURBIT_INIT
+000013 940e 006d 	call	WAIT
+000015 940e 0053 	call	DISP_CONFIG		;Blinking cursor at this point
                  
-                 		;call	BACKLIGHT_OFF
-000017 940c 0052 		jmp		STOP
+000017 940e 001b 	call	LINE_PRINT
                  
+                 	;call	BACKLIGHT_OFF
+000019 940c 006b 	jmp		STOP
+                 
+                 LINE_PRINT:
+00001b 940e 0022 	call	LCD_HOME
+00001d e0f0      	ldi		ZH,HIGH(LINE*2)
+00001e e0e8      	ldi		ZL,LOW(LINE*2)
+00001f 940e 002a 	call	LCD_PRINT
+000021 9508      	ret
                  //Set write-pos at column 0 (home/start pos)
                  LCD_HOME:
-                 
+000022 e002      	ldi		r16,0b00000010
+000023 940e 0047 	call	LCD_COMMAND
+000025 9508      	ret
                  //Erase the content on screen
                  LCD_ERASE:
-000019 e001      		ldi		r16,LCD_CLR
-00001a 940e 002e 		call	LCD_COMMAND
+000026 e001      	ldi		r16,LCD_CLR
+000027 940e 0047 	call	LCD_COMMAND
+000029 9508      	ret
                  LCD_PRINT:
-                 	
+00002a 940e 0031 	call	GET_CHAR
+00002c 940e 0043 	call	LCD_ASCII
+00002e 3000      	cpi		r16,$00			;Determine if the string is empty
+00002f f7d1      	brne	LCD_PRINT		
+000030 9508      	ret
+                 
+                 GET_CHAR:
+000031 9105      		lpm		r16,Z+
+000032 3000      		cpi		r16,$00			;Determine if the string is empty
+000033 f1b9      		breq	STOP			;Stop if whole byte is empty
+000034 9508      		ret
                  
                  LCD_WRITE4:
-00001c 9a29      		sbi		PORTB,E			;
-00001d b90b      		out		PORTD,r16		;Output data
-00001e 940e 0054 		call	WAIT
-000020 9829      		cbi		PORTB,E			;Signals to LCD that new data is available
-000021 940e 0054 		call	WAIT			
-000023 9508      		ret
+000035 9a29      	sbi		PORTB,E			;
+000036 b90b      	out		PORTD,r16		;Output data
+000037 940e 006d 	call	WAIT
+000039 9829      	cbi		PORTB,E			;Signals to LCD that new data is available
+00003a 940e 006d 	call	WAIT			
+00003c 9508      	ret
                  LCD_WRITE8:
-000024 940e 001c 		call	LCD_WRITE4		;Write first 4 bits
-000026 9502      		swap	r16				;Place remaining bits in position
-000027 940e 001c 		call	LCD_WRITE4		;Write remaining 4 bits
-000029 9508      		ret
+00003d 940e 0035 	call	LCD_WRITE4		;Write first 4 bits
+00003f 9502      	swap	r16				;Place remaining bits in position
+000040 940e 0035 	call	LCD_WRITE4		;Write remaining 4 bits
+000042 9508      	ret
                  LCD_ASCII:
-00002a 9a28      		sbi		PORTB,0			;Config LCD for ASCII
-00002b 940e 0024 		call	LCD_WRITE8
-00002d 9508      		ret
+000043 9a28      	sbi		PORTB,0			;Config LCD for ASCII
+000044 940e 003d 	call	LCD_WRITE8
+000046 9508      	ret
                  
                  LCD_COMMAND:
-00002e 9828      		cbi		PORTB,0			;Config LCD for commands
-00002f 940e 0024 		call	LCD_WRITE8
-000031 9508      		ret
+000047 9828      	cbi		PORTB,0			;Config LCD for commands
+000048 940e 003d 	call	LCD_WRITE8
+00004a 9508      	ret
                  
                  BACKLIGHT_ON:
-000032 9a2a      		sbi		PORTB,2
-000033 9508      		ret
+00004b 9a2a      	sbi		PORTB,2
+00004c 9508      	ret
                  BACKLIGHT_OFF:
-000034 982a      		cbi		PORTB,2
-000035 9508      		ret
+00004d 982a      	cbi		PORTB,2
+00004e 9508      	ret
                  //Init the ports accordingly
                  PORT_INIT:
-000036 ef0f      		ldi		r16,$FF
-000037 b904      		out		DDRB,r16		;output
-000038 b90a      		out		DDRD,r16		;output
-000039 9508      		ret
+00004f ef0f      	ldi		r16,$FF
+000050 b904      	out		DDRB,r16		;output
+000051 b90a      	out		DDRD,r16		;output
+000052 9508      	ret
                  
                  //Configures the display to function according to FN_SET, DISP_ON etc..
                  DISP_CONFIG:
-00003a e208      		ldi		r16,FN_SET
-00003b 940e 002e 		call	LCD_COMMAND
-00003d e001      		ldi		r16,LCD_CLR
-00003e 940e 002e 		call	LCD_COMMAND
-000040 e00f      		ldi		r16,DISP_ON
-000041 940e 002e 		call	LCD_COMMAND
-000043 e006      		ldi		r16,E_MODE
-000044 940e 002e 		call	LCD_COMMAND
-000046 9508      		ret
+000053 e208      	ldi		r16,FN_SET
+000054 940e 0047 	call	LCD_COMMAND
+000056 e001      	ldi		r16,LCD_CLR
+000057 940e 0047 	call	LCD_COMMAND
+000059 e00f      	ldi		r16,DISP_ON
+00005a 940e 0047 	call	LCD_COMMAND
+00005c e006      	ldi		r16,E_MODE
+00005d 940e 0047 	call	LCD_COMMAND
+00005f 9508      	ret
                  //Init the display to receive and process 4bit data
                  FOURBIT_INIT:
-000047 e300      		ldi		r16,$30
-000048 940e 001c 		call	LCD_WRITE4
-00004a 940e 001c 		call	LCD_WRITE4
-00004c 940e 001c 		call	LCD_WRITE4
-00004e e200      		ldi		r16,$20
-00004f 940e 001c 		call	LCD_WRITE4
-000051 9508      		ret
+000060 e300      	ldi		r16,$30
+000061 940e 0035 	call	LCD_WRITE4
+000063 940e 0035 	call	LCD_WRITE4
+000065 940e 0035 	call	LCD_WRITE4
+000067 e200      	ldi		r16,$20
+000068 940e 0035 	call	LCD_WRITE4
+00006a 9508      	ret
                  
                  	
                  STOP:
-000052 940c 0052 		jmp		STOP
+00006b 940c 006b 	jmp		STOP
                  
                  WAIT:
-000054 e043      		ldi		r20,3
+00006d e043      	ldi		r20,3
                  D_3:
-000055 e030      		ldi		r19,0
+00006e e030      	ldi		r19,0
                  D_2:
-000056 e020      		ldi		r18,0
+00006f e020      	ldi		r18,0
                  D_1:
-000057 952a      		dec		r18
-000058 f7f1      		brne	D_1
-000059 953a      		dec		r19
-00005a f7d9      		brne	D_2
-00005b 954a      		dec		r20
-00005c f7c1      		brne	D_3
+000070 952a      	dec		r18
+000071 f7f1      	brne	D_1
+000072 953a      	dec		r19
+000073 f7d9      	brne	D_2
+000074 954a      	dec		r20
+000075 f7c1      	brne	D_3
+000076 9508      	ret
+                 
+                 WAITLONG:
+000077 e065      	ldi		r22,5
+                 LOOP:
+000078 940e 006d 	call	WAIT
+00007a 956a      	dec		r22
+00007b f7e1      	brne	LOOP
 
 
 RESOURCE USE INFORMATION
@@ -1110,38 +1144,38 @@ counted separately from r26..r31 here.
 "ATmega328P" register use summary:
 r0 :   0 r1 :   0 r2 :   0 r3 :   0 r4 :   0 r5 :   0 r6 :   0 r7 :   0 
 r8 :   0 r9 :   0 r10:   0 r11:   0 r12:   0 r13:   0 r14:   0 r15:   0 
-r16:  17 r17:   0 r18:   2 r19:   2 r20:   2 r21:   0 r22:   0 r23:   0 
-r24:   0 r25:   0 r26:   0 r27:   0 r28:   0 r29:   0 r30:   0 r31:   0 
-x  :   0 y  :   0 z  :   0 
-Registers used: 4 out of 35 (11.4%)
+r16:  20 r17:   0 r18:   2 r19:   2 r20:   2 r21:   0 r22:   2 r23:   0 
+r24:   0 r25:   0 r26:   0 r27:   0 r28:   0 r29:   0 r30:   1 r31:   1 
+x  :   0 y  :   0 z  :   1 
+Registers used: 8 out of 35 (22.9%)
 
 "ATmega328P" instruction use summary:
 .lds  :   0 .sts  :   0 adc   :   0 add   :   0 adiw  :   0 and   :   0 
 andi  :   0 asr   :   0 bclr  :   0 bld   :   0 brbc  :   0 brbs  :   0 
-brcc  :   0 brcs  :   0 break :   0 breq  :   0 brge  :   0 brhc  :   0 
+brcc  :   0 brcs  :   0 break :   0 breq  :   1 brge  :   0 brhc  :   0 
 brhs  :   0 brid  :   0 brie  :   0 brlo  :   0 brlt  :   0 brmi  :   0 
-brne  :   3 brpl  :   0 brsh  :   0 brtc  :   0 brts  :   0 brvc  :   0 
-brvs  :   0 bset  :   0 bst   :   0 call  :  24 cbi   :   3 cbr   :   0 
+brne  :   5 brpl  :   0 brsh  :   0 brtc  :   0 brts  :   0 brvc  :   0 
+brvs  :   0 bset  :   0 bst   :   0 call  :  29 cbi   :   3 cbr   :   0 
 clc   :   0 clh   :   0 cli   :   0 cln   :   0 clr   :   0 cls   :   0 
 clt   :   0 clv   :   0 clz   :   0 com   :   0 cp    :   0 cpc   :   0 
-cpi   :   0 cpse  :   0 dec   :   3 eor   :   0 fmul  :   0 fmuls :   0 
+cpi   :   2 cpse  :   0 dec   :   4 eor   :   0 fmul  :   0 fmuls :   0 
 fmulsu:   0 icall :   0 ijmp  :   0 in    :   0 inc   :   0 jmp   :   2 
-ld    :   0 ldd   :   0 ldi   :  14 lds   :   0 lpm   :   0 lsl   :   0 
+ld    :   0 ldd   :   0 ldi   :  17 lds   :   0 lpm   :   1 lsl   :   0 
 lsr   :   0 mov   :   0 movw  :   0 mul   :   0 muls  :   0 mulsu :   0 
 neg   :   0 nop   :   0 or    :   0 ori   :   0 out   :   5 pop   :   0 
-push  :   0 rcall :   0 ret   :  10 reti  :   0 rjmp  :   0 rol   :   0 
+push  :   0 rcall :   0 ret   :  16 reti  :   0 rjmp  :   0 rol   :   0 
 ror   :   0 sbc   :   0 sbci  :   0 sbi   :   3 sbic  :   0 sbis  :   0 
 sbiw  :   0 sbr   :   0 sbrc  :   0 sbrs  :   0 sec   :   0 seh   :   0 
 sei   :   0 sen   :   0 ser   :   0 ses   :   0 set   :   0 sev   :   0 
 sez   :   0 sleep :   0 spm   :   0 st    :   0 std   :   0 sts   :   0 
 sub   :   0 subi  :   0 swap  :   1 tst   :   0 wdr   :   0 
-Instructions used: 10 out of 113 (8.8%)
+Instructions used: 13 out of 113 (11.5%)
 
 "ATmega328P" memory use summary [bytes]:
 Segment   Begin    End      Code   Data   Used    Size   Use%
 ---------------------------------------------------------------
-[.cseg] 0x000000 0x0000bc    188      0    188   32768   0.6%
+[.cseg] 0x000000 0x0000fa    240     10    250   32768   0.8%
 [.dseg] 0x000100 0x000100      0      0      0    2048   0.0%
 [.eseg] 0x000000 0x000000      0      0      0    1024   0.0%
 
-Assembly complete, 0 errors, 0 warnings
+Assembly complete, 0 errors, 1 warnings
