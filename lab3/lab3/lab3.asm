@@ -25,6 +25,7 @@ LCD_INIT:
 
 	call	MEM_INIT
 	call	TIME_FORMAT
+	call	TIME_TICK
 	;call	TEST
 	call	WAIT			;Delay to let LCD start up
 	call	PORT_INIT
@@ -39,24 +40,53 @@ LCD_INIT:
 MEM_INIT:
 	ldi		ZH,HIGH(LINE)
 	ldi		ZL,LOW(LINE)
+	ldi		XH,HIGH(TIME)
+	ldi		XL,LOW(TIME)
 	ldi		r20,' '
-	ldi		r21,16
-//Writes to SRAM
-MEM_WRITE:
+	ldi		r21,16			;Loop-index LINE
+	call	MEM_WRITE_LINE
+	call	MEM_WRITE_CLK
+	ret
+//Writes spaces for one full line to SRAM(LINE)
+MEM_WRITE_LINE:
 	st		Z+,r20
 	dec		r21
 	cpi		r21,0
-	brne	MEM_WRITE
+	brne	MEM_WRITE_LINE
 	ldi		r20,$00
 	st		Z,r20
-	ldi		r20,
+	ldi		r21,6			;Set loop-index	TIME
+	ldi		r20,$01			;Loads 1:s to be put into clock
 	ret
+//Writes a starting time into SRAM(TIME)
+MEM_WRITE_CLK:
+	st		X+,r20
+	dec		r21
+	cpi		r21,0
+	brne	MEM_WRITE_CLK
+	clr		r20
+	ret
+TIME_TICK:
+	ldi		XH,HIGH(TIME)
+	ldi		XL,LOW(TIME)
+TICK_SEC:
+	ld		r16,X
+	inc		r16
+	cpi		r16,10
+	breq	TICK_MIN
+	st		X,r16
+	jmp		TICK_SEC
+TICK_MIN:
+	ld		r16,X+
+	inc		r16
+	st		X,r16
+	ret
+
 TIME_FORMAT:
 	ldi		XH,HIGH(TIME)
 	ldi		XL,LOW(TIME)
 	ldi		ZH,HIGH(LINE)
 	ldi		ZL,LOW(LINE)
-	ldi		r20,0b00110001	;Set initial time to start counting from
 	ldi		r21,8			;Loop-index for clock 00:00:00
 	ldi		r22,2			;Loop-index for colons
 	ldi		r17,0b00111010	;ASCII colon
@@ -64,7 +94,6 @@ TIME_WRITE_NMB:
 	ld		r16,X+
 	ldi		r25,$30
 	add		r16,r25			;Convert the number in r16 to ASCII and place in r16
-	ldi		r16,0b00110000
 	st		Z+,r16
 	dec		r22
 	dec		r21
@@ -82,14 +111,6 @@ TIME_WRITE_COL:
 	ldi		r22,2			;Reset loop-index for colons
 	dec		r21
 	ret
-TIME_TICK:
-	ldi		XH,HIGH(TIME)
-	ldi		XL,LOW(TIME)
-	ld		r16,X
-	inc		r16
-	st		X,r16
-	ret
-
 LINE_PRINT:
 	call	LCD_HOME
 	ldi		ZH,HIGH(LINE)
