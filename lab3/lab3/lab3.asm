@@ -1,41 +1,52 @@
-
-	ldi		r16,HIGH(RAMEND)
-	out		SPH,r16
-	ldi		r16,LOW(RAMEND)
-	out		SPL,r16
-
-	jmp		LCD_INIT
+	.org	$0000
+	jmp		INIT
+	.org	OC1Aaddr
+	jmp		TIME_TICK
 
 	.equ	FN_SET		= 0b00101000			;4-bit mode, 2 line, 5x8 font
 	.equ	DISP_ON		= 0b00001111			;Display on, cursor on, cursor blink
 	.equ	LCD_CLR		= 0b00000001			;Clear display
 	.equ	E_MODE		= 0b00000110			;Increment cursor, no shift
+	.equ	SECOND_TICKS = 62500 - 1			
 
 	.equ	E			= 1
 
 .dseg
-.org	$100
-TIME:	.byte 6
-LINE:	.db	' '
+.org		$100
+TIME:		.byte 6
+LINE:		.db	' '
 .cseg
-TEXT:	.db	"00:00:00",$00
+TEXT:		.db	"00:00:00",$00
 
-
-LCD_INIT:
-
+INIT:
+	ldi		r16,HIGH(RAMEND)
+	out		SPH,r16
+	ldi		r16,LOW(RAMEND)
+	out		SPL,r16
 	call	MEM_INIT
 	call	TIME_FORMAT
-	call	TIME_TICK
-	;call	TEST
 	call	WAIT			;Delay to let LCD start up
 	call	PORT_INIT
 	call	BACKLIGHT_ON	
-	call	WAIT
 	call	FOURBIT_INIT
-	call	WAIT
 	call	DISP_CONFIG		;Blinking cursor at this point
-	call	LINE_PRINT
-	jmp		STOP
+	call	TIMER_INIT
+
+MAIN:
+	;call	TIME_TICK
+	jmp		MAIN
+
+TIMER_INIT:
+	ldi		r16,(1<<WGM12)|(1<<CS12)
+	sts		TCCR1B,r16
+	ldi		r16,HIGH(SECOND_TICKS)
+	sts		OCR1AH,r16
+	ldi		r16,LOW(SECOND_TICKS)
+	sts		OCR1AL,r16
+	ldi		r16,(1<<OCIE1A)
+	sts		TIMSK1,r16
+	sei
+	ret
 
 MEM_INIT:
 	ldi		ZH,HIGH(LINE)
@@ -66,21 +77,56 @@ MEM_WRITE_CLK:
 	brne	MEM_WRITE_CLK
 	clr		r20
 	ret
+
 TIME_TICK:
-	ldi		XH,HIGH(TIME)
-	ldi		XL,LOW(TIME)
+	ldi		XH,HIGH(TIME+5)
+	ldi		XL,LOW(TIME+5)
+	push	r17
+	in		r17,SREG
 TICK_SEC:
 	ld		r16,X
 	inc		r16
 	cpi		r16,10
-	breq	TICK_MIN
+	brne	TICK_DONE
+	clr		r16				
 	st		X,r16
-	jmp		TICK_SEC
-TICK_MIN:
-	ld		r16,X+
+	ld		r16,-X
 	inc		r16
+	cpi		r16,6
+	brne	TICK_DONE
+	clr		r16				
 	st		X,r16
-	ret
+	ld		r16,-X
+	inc		r16
+	cpi		r16,10
+	brne	TICK_DONE
+	clr		r16				
+	st		X,r16
+	ld		r16,-X
+	inc		r16
+	cpi		r16,6
+	brne	TICK_DONE
+	clr		r16				
+	st		X,r16
+	ld		r16,-X
+	inc		r16
+	cpi		r16,4
+	brne	TICK_DONE
+	clr		r16				
+	st		X,r16
+	ld		r16,-X
+	inc		r16
+	cpi		r16,3
+	brne	TICK_DONE
+	clr		r16
+	st		X,r16
+TICK_DONE:
+	st		X,r16
+	call	TIME_FORMAT
+	call	LINE_PRINT
+	out		SREG,r17
+	pop		r17
+	reti
 
 TIME_FORMAT:
 	ldi		XH,HIGH(TIME)
@@ -119,21 +165,18 @@ LINE_PRINT:
 	ret
 LCD_PRINT:
 	call	GET_CHAR
-	;ldi		r22,$30
-	;add		r16,r22			;Add offset required to translate to ASCII
 	call	LCD_ASCII
 	cpi		r16,$00			;Determine if the string is empty
 	brne	LCD_PRINT		
 	ret
 GET_CHAR:
 	ld		r16,Z+
-	cpi		r16,$00			;Determine if the string is empty
-	breq	STOP			;Stop if whole byte is empty
+	;cpi	r16,$00			;Determine if the string is empty
+	;breq	STOP			;Stop if whole byte is empty
 	ret
 LCD_WRITE4:
-	sbi		PORTB,E			;
+	sbi		PORTB,E			
 	out		PORTD,r16		;Output data
-	call	WAIT
 	cbi		PORTB,E			;Signals to LCD that new data is available
 	call	WAIT			
 	ret
@@ -217,12 +260,4 @@ D_1:
 	brne	D_2
 	dec		r20
 	brne	D_3
-	ret
-
-WAITLONG:
-	ldi		r22,5
-LOOP:
-	call	WAIT
-	dec		r22
-	brne	LOOP
 	ret
