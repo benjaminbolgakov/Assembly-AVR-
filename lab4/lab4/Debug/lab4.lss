@@ -1,5 +1,5 @@
 
-AVRASM ver. 2.1.57  C:\Users\Benni\Documents\Atmel Studio\6.2\lab4\lab4\lab4.asm Tue Dec 15 13:31:45 2020
+AVRASM ver. 2.1.57  C:\Users\Benni\Documents\Atmel Studio\6.2\lab4\lab4\lab4.asm Tue Dec 15 22:41:57 2020
 
 [builtin](2): Including file 'C:\Program Files (x86)\Atmel\Atmel Toolchain\AVR Assembler\Native\2.1.1175\avrassembler\Include\m328Pdef.inc'
                  
@@ -990,120 +990,142 @@ AVRASM ver. 2.1.57  C:\Users\Benni\Documents\Atmel Studio\6.2\lab4\lab4\lab4.asm
                  	.equ	E			= 1
                  
                  	INIT:
-000000 e008      	ldi		r16,HIGH(RAMEND)
-000001 bf0e      	out		SPH,r16
-000002 ef0f      	ldi		r16,LOW(RAMEND)
-000003 bf0d      	out		SPL,r16
-000004 940e 0064 	call	WAIT			;Delay to let LCD start up
-000006 940e 0048 	call	PORT_INIT
-000008 940e 0044 	call	BACKLIGHT_ON	
-00000a 940e 0059 	call	FOURBIT_INIT
-00000c 940e 004c 	call	DISP_CONFIG		;Blinking cursor at this point
-00000e 940e 0064 	call	WAIT
-000010 940e 0014 	call	LCD_PRINT_HEX
+000000 940e 0016 	call	LCD_PRINT_HEX
+000002 e008      	ldi		r16,HIGH(RAMEND)
+000003 bf0e      	out		SPH,r16
+000004 ef0f      	ldi		r16,LOW(RAMEND)
+000005 bf0d      	out		SPL,r16
+000006 940e 0070 	call	WAIT			;Delay to let LCD start up
+000008 940e 0054 	call	PORT_INIT
+00000a 940e 0050 	call	BACKLIGHT_ON	
+00000c 940e 0065 	call	FOURBIT_INIT
+00000e 940e 0058 	call	DISP_CONFIG		;Blinking cursor at this point
+000010 940e 0070 	call	WAIT
+000012 940e 0016 	call	LCD_PRINT_HEX
+                 	
                  MAIN:
-000012 940c 0012 	jmp		MAIN
+000014 940c 0014 	jmp		MAIN
                  
                  LCD_PRINT_HEX:
-000014 e911      	ldi		r17,145
-000015 ef00      	ldi		r16,0b11110000
-000016 2301      	and		r16,r17
-000017 9502      	swap	r16
-000018 940e 0034 	call	LCD_ASCII
-00001a 9502      	swap	r16
-00001b 2310      	and		r17,r16
-00001c 940e 0034 	call	LCD_ASCII
-00001e 9508      	ret
+000016 e390      	ldi		r25,$30			;ASCII index offset 0-9
+000017 e0a7      	ldi		r26,$07			;ASCII index offset A-F
+000018 e51f      	ldi		r17,$5F			;Test value****
+                 	
+000019 ef00      	ldi		r16,0b11110000
+00001a 2301      	and		r16,r17
+00001b 9502      	swap	r16
+00001c 300a      	cpi		r16,$0A		
+00001d f00a      	brmi	NUMHEX
+00001e 0f0a      	add		r16,r26			;The hexvalue is larger than 9, add extra offset
+                 NUMHEX:
+00001f 0f09      	add		r16,r25			;Add base offset
+000020 e08f      	ldi		r24,0b00001111
+                 	
+                 
+                 PRINT_NMB:
+000021 e360      	ldi		r22,$30			;For the numbers, we add $30 to get ASCII
+000022 0f06      	add		r16,r22
+000023 940e 0040 	call	LCD_ASCII
+                 	;ldi		r16,0b00001111
+                 	;and		r16,r17
+                 	;add		r16,r22
+                 	;call	LCD_ASCII
+                 PRINT_LET:
+000025 e367      	ldi		r22,$37			;For the letters, we add $37 to get ASCII
+000026 0f06      	add		r16,r22
+000027 940e 0040 	call	LCD_ASCII
+000029 e00f      	ldi		r16,0b00001111
+00002a 9508      	ret
                  
                  LCD_PRINT:
-00001f 940e 0026 	call	GET_CHAR
-000021 940e 0034 	call	LCD_ASCII
-000023 3000      	cpi		r16,$00			;Determine if the string is empty
-000024 f7d1      	brne	LCD_PRINT		
-000025 9508      	ret
+00002b 940e 0032 	call	GET_CHAR
+00002d 940e 0040 	call	LCD_ASCII
+00002f 3000      	cpi		r16,$00			;Determine if the string is empty
+000030 f7d1      	brne	LCD_PRINT		
+000031 9508      	ret
                  GET_CHAR:
-000026 9101      	ld		r16,Z+
-000027 9508      	ret
-                 LCD_WRITE4:
-000028 9a29      	sbi		PORTB,E			
-000029 b90b      	out		PORTD,r16		;Output data
-00002a 9829      	cbi		PORTB,E			;Signals to LCD that new data is available
-00002b 940e 0064 	call	WAIT			
-00002d 9508      	ret
-                 LCD_WRITE8:
-00002e 940e 0028 	call	LCD_WRITE4		;Write first 4 bits
-000030 9502      	swap	r16				;Place remaining bits in position
-000031 940e 0028 	call	LCD_WRITE4		;Write remaining 4 bits
+000032 9101      	ld		r16,Z+
 000033 9508      	ret
+                 LCD_WRITE4:
+000034 9a29      	sbi		PORTB,E			
+000035 b90b      	out		PORTD,r16		;Output data
+000036 9829      	cbi		PORTB,E			;Signals to LCD that new data is available
+000037 940e 0070 	call	WAIT			
+000039 9508      	ret
+                 LCD_WRITE8:
+00003a 940e 0034 	call	LCD_WRITE4		;Write first 4 bits
+00003c 9502      	swap	r16				;Place remaining bits in position
+00003d 940e 0034 	call	LCD_WRITE4		;Write remaining 4 bits
+00003f 9508      	ret
                  LCD_ASCII:
-000034 9a28      	sbi		PORTB,0			;Config LCD for ASCII
-000035 940e 002e 	call	LCD_WRITE8
-000037 9508      	ret
+000040 9a28      	sbi		PORTB,0			;Config LCD for ASCII
+000041 940e 003a 	call	LCD_WRITE8
+000043 9508      	ret
                  LCD_COMMAND:
-000038 9828      	cbi		PORTB,0			;Config LCD for commands
-000039 940e 002e 	call	LCD_WRITE8
-00003b 9508      	ret
+000044 9828      	cbi		PORTB,0			;Config LCD for commands
+000045 940e 003a 	call	LCD_WRITE8
+000047 9508      	ret
                  
                  //Set write-pos at column 0 (home/start pos)
                  LCD_HOME:
-00003c e002      	ldi		r16,0b00000010
-00003d 940e 0038 	call	LCD_COMMAND
-00003f 9508      	ret
+000048 e002      	ldi		r16,0b00000010
+000049 940e 0044 	call	LCD_COMMAND
+00004b 9508      	ret
                  
                  //Erase the content on screen
                  LCD_ERASE:
-000040 e001      	ldi		r16,LCD_CLR
-000041 940e 0038 	call	LCD_COMMAND
-000043 9508      	ret
+00004c e001      	ldi		r16,LCD_CLR
+00004d 940e 0044 	call	LCD_COMMAND
+00004f 9508      	ret
                  BACKLIGHT_ON:
-000044 9a2a      	sbi		PORTB,2
-000045 9508      	ret
+000050 9a2a      	sbi		PORTB,2
+000051 9508      	ret
                  BACKLIGHT_OFF:
-000046 982a      	cbi		PORTB,2
-000047 9508      	ret
+000052 982a      	cbi		PORTB,2
+000053 9508      	ret
                  
                  //Init the ports accordingly
                  PORT_INIT:
-000048 ef0f      	ldi		r16,$FF
-000049 b904      	out		DDRB,r16		;output
-00004a b90a      	out		DDRD,r16		;output
-00004b 9508      	ret
+000054 ef0f      	ldi		r16,$FF
+000055 b904      	out		DDRB,r16		;output
+000056 b90a      	out		DDRD,r16		;output
+000057 9508      	ret
                  
                  //Configures the display to function according to FN_SET, DISP_ON etc..
                  DISP_CONFIG:
-00004c e208      	ldi		r16,FN_SET
-00004d 940e 0038 	call	LCD_COMMAND
-00004f e001      	ldi		r16,LCD_CLR
-000050 940e 0038 	call	LCD_COMMAND
-000052 e00f      	ldi		r16,DISP_ON
-000053 940e 0038 	call	LCD_COMMAND
-000055 e006      	ldi		r16,E_MODE
-000056 940e 0038 	call	LCD_COMMAND
-000058 9508      	ret
+000058 e208      	ldi		r16,FN_SET
+000059 940e 0044 	call	LCD_COMMAND
+00005b e001      	ldi		r16,LCD_CLR
+00005c 940e 0044 	call	LCD_COMMAND
+00005e e00f      	ldi		r16,DISP_ON
+00005f 940e 0044 	call	LCD_COMMAND
+000061 e006      	ldi		r16,E_MODE
+000062 940e 0044 	call	LCD_COMMAND
+000064 9508      	ret
                  
                  //Init the display to receive and process 4bit data
                  FOURBIT_INIT:
-000059 e300      	ldi		r16,$30
-00005a 940e 0028 	call	LCD_WRITE4
-00005c 940e 0028 	call	LCD_WRITE4
-00005e 940e 0028 	call	LCD_WRITE4
-000060 e200      	ldi		r16,$20
-000061 940e 0028 	call	LCD_WRITE4
-000063 9508      	ret
+000065 e300      	ldi		r16,$30
+000066 940e 0034 	call	LCD_WRITE4
+000068 940e 0034 	call	LCD_WRITE4
+00006a 940e 0034 	call	LCD_WRITE4
+00006c e200      	ldi		r16,$20
+00006d 940e 0034 	call	LCD_WRITE4
+00006f 9508      	ret
                  
                  	WAIT:
-000064 e043      	ldi		r20,3
+000070 e043      	ldi		r20,3
                  D_3:
-000065 e030      	ldi		r19,0
+000071 e030      	ldi		r19,0
                  D_2:
-000066 e020      	ldi		r18,0
+000072 e020      	ldi		r18,0
                  D_1:
-000067 952a      	dec		r18
-000068 f7f1      	brne	D_1
-000069 953a      	dec		r19
-00006a f7d9      	brne	D_2
-00006b 954a      	dec		r20
-00006c f7c1      	brne	D_3
+000073 952a      	dec		r18
+000074 f7f1      	brne	D_1
+000075 953a      	dec		r19
+000076 f7d9      	brne	D_2
+000077 954a      	dec		r20
+000078 f7c1      	brne	D_3
 
 
 RESOURCE USE INFORMATION
@@ -1123,23 +1145,23 @@ counted separately from r26..r31 here.
 "ATmega328P" register use summary:
 r0 :   0 r1 :   0 r2 :   0 r3 :   0 r4 :   0 r5 :   0 r6 :   0 r7 :   0 
 r8 :   0 r9 :   0 r10:   0 r11:   0 r12:   0 r13:   0 r14:   0 r15:   0 
-r16:  24 r17:   3 r18:   2 r19:   2 r20:   2 r21:   0 r22:   0 r23:   0 
-r24:   0 r25:   0 r26:   0 r27:   0 r28:   0 r29:   0 r30:   0 r31:   0 
+r16:  28 r17:   2 r18:   2 r19:   2 r20:   2 r21:   0 r22:   4 r23:   0 
+r24:   1 r25:   2 r26:   2 r27:   0 r28:   0 r29:   0 r30:   0 r31:   0 
 x  :   0 y  :   0 z  :   1 
-Registers used: 6 out of 35 (17.1%)
+Registers used: 10 out of 35 (28.6%)
 
 "ATmega328P" instruction use summary:
-.lds  :   0 .sts  :   0 adc   :   0 add   :   0 adiw  :   0 and   :   2 
+.lds  :   0 .sts  :   0 adc   :   0 add   :   4 adiw  :   0 and   :   1 
 andi  :   0 asr   :   0 bclr  :   0 bld   :   0 brbc  :   0 brbs  :   0 
 brcc  :   0 brcs  :   0 break :   0 breq  :   0 brge  :   0 brhc  :   0 
-brhs  :   0 brid  :   0 brie  :   0 brlo  :   0 brlt  :   0 brmi  :   0 
+brhs  :   0 brid  :   0 brie  :   0 brlo  :   0 brlt  :   0 brmi  :   1 
 brne  :   4 brpl  :   0 brsh  :   0 brtc  :   0 brts  :   0 brvc  :   0 
-brvs  :   0 bset  :   0 bst   :   0 call  :  26 cbi   :   3 cbr   :   0 
+brvs  :   0 bset  :   0 bst   :   0 call  :  27 cbi   :   3 cbr   :   0 
 clc   :   0 clh   :   0 cli   :   0 cln   :   0 clr   :   0 cls   :   0 
 clt   :   0 clv   :   0 clz   :   0 com   :   0 cp    :   0 cpc   :   0 
-cpi   :   1 cpse  :   0 dec   :   3 eor   :   0 fmul  :   0 fmuls :   0 
+cpi   :   2 cpse  :   0 dec   :   3 eor   :   0 fmul  :   0 fmuls :   0 
 fmulsu:   0 icall :   0 ijmp  :   0 in    :   0 inc   :   0 jmp   :   1 
-ld    :   1 ldd   :   0 ldi   :  16 lds   :   0 lpm   :   0 lsl   :   0 
+ld    :   1 ldd   :   0 ldi   :  22 lds   :   0 lpm   :   0 lsl   :   0 
 lsr   :   0 mov   :   0 movw  :   0 mul   :   0 muls  :   0 mulsu :   0 
 neg   :   0 nop   :   0 or    :   0 ori   :   0 out   :   5 pop   :   0 
 push  :   0 rcall :   0 ret   :  15 reti  :   0 rjmp  :   0 rol   :   0 
@@ -1147,13 +1169,13 @@ ror   :   0 sbc   :   0 sbci  :   0 sbi   :   3 sbic  :   0 sbis  :   0
 sbiw  :   0 sbr   :   0 sbrc  :   0 sbrs  :   0 sec   :   0 seh   :   0 
 sei   :   0 sen   :   0 ser   :   0 ses   :   0 set   :   0 sev   :   0 
 sez   :   0 sleep :   0 spm   :   0 st    :   0 std   :   0 sts   :   0 
-sub   :   0 subi  :   0 swap  :   3 tst   :   0 wdr   :   0 
-Instructions used: 13 out of 113 (11.5%)
+sub   :   0 subi  :   0 swap  :   2 tst   :   0 wdr   :   0 
+Instructions used: 15 out of 113 (13.3%)
 
 "ATmega328P" memory use summary [bytes]:
 Segment   Begin    End      Code   Data   Used    Size   Use%
 ---------------------------------------------------------------
-[.cseg] 0x000000 0x0000dc    220      0    220   32768   0.7%
+[.cseg] 0x000000 0x0000f4    244      0    244   32768   0.7%
 [.dseg] 0x000100 0x000100      0      0      0    2048   0.0%
 [.eseg] 0x000000 0x000000      0      0      0    1024   0.0%
 

@@ -22,24 +22,27 @@
  </OUTPUT_FILES>
  <LABELS>
   <INIT><FILE>C:\Users\Benni\Documents\Atmel Studio\6.2\lab4\lab4\lab4.asm</FILE><LINE>9</LINE></INIT>
-  <WAIT><FILE>C:\Users\Benni\Documents\Atmel Studio\6.2\lab4\lab4\lab4.asm</FILE><LINE>111</LINE></WAIT>
-  <PORT_INIT><FILE>C:\Users\Benni\Documents\Atmel Studio\6.2\lab4\lab4\lab4.asm</FILE><LINE>83</LINE></PORT_INIT>
-  <BACKLIGHT_ON><FILE>C:\Users\Benni\Documents\Atmel Studio\6.2\lab4\lab4\lab4.asm</FILE><LINE>75</LINE></BACKLIGHT_ON>
-  <FOURBIT_INIT><FILE>C:\Users\Benni\Documents\Atmel Studio\6.2\lab4\lab4\lab4.asm</FILE><LINE>102</LINE></FOURBIT_INIT>
-  <DISP_CONFIG><FILE>C:\Users\Benni\Documents\Atmel Studio\6.2\lab4\lab4\lab4.asm</FILE><LINE>90</LINE></DISP_CONFIG>
-  <LCD_PRINT_HEX><FILE>C:\Users\Benni\Documents\Atmel Studio\6.2\lab4\lab4\lab4.asm</FILE><LINE>24</LINE></LCD_PRINT_HEX>
-  <MAIN><FILE>C:\Users\Benni\Documents\Atmel Studio\6.2\lab4\lab4\lab4.asm</FILE><LINE>21</LINE></MAIN>
-  <LCD_ASCII><FILE>C:\Users\Benni\Documents\Atmel Studio\6.2\lab4\lab4\lab4.asm</FILE><LINE>55</LINE></LCD_ASCII>
-  <LCD_PRINT><FILE>C:\Users\Benni\Documents\Atmel Studio\6.2\lab4\lab4\lab4.asm</FILE><LINE>35</LINE></LCD_PRINT>
-  <GET_CHAR><FILE>C:\Users\Benni\Documents\Atmel Studio\6.2\lab4\lab4\lab4.asm</FILE><LINE>41</LINE></GET_CHAR>
-  <LCD_WRITE4><FILE>C:\Users\Benni\Documents\Atmel Studio\6.2\lab4\lab4\lab4.asm</FILE><LINE>44</LINE></LCD_WRITE4>
-  <LCD_WRITE8><FILE>C:\Users\Benni\Documents\Atmel Studio\6.2\lab4\lab4\lab4.asm</FILE><LINE>50</LINE></LCD_WRITE8>
-  <LCD_COMMAND><FILE>C:\Users\Benni\Documents\Atmel Studio\6.2\lab4\lab4\lab4.asm</FILE><LINE>59</LINE></LCD_COMMAND>
-  <LCD_HOME><FILE>C:\Users\Benni\Documents\Atmel Studio\6.2\lab4\lab4\lab4.asm</FILE><LINE>65</LINE></LCD_HOME>
-  <LCD_ERASE><FILE>C:\Users\Benni\Documents\Atmel Studio\6.2\lab4\lab4\lab4.asm</FILE><LINE>71</LINE></LCD_ERASE>
-  <BACKLIGHT_OFF><FILE>C:\Users\Benni\Documents\Atmel Studio\6.2\lab4\lab4\lab4.asm</FILE><LINE>78</LINE></BACKLIGHT_OFF>
-  <D_3><FILE>C:\Users\Benni\Documents\Atmel Studio\6.2\lab4\lab4\lab4.asm</FILE><LINE>113</LINE></D_3>
-  <D_2><FILE>C:\Users\Benni\Documents\Atmel Studio\6.2\lab4\lab4\lab4.asm</FILE><LINE>115</LINE></D_2>
-  <D_1><FILE>C:\Users\Benni\Documents\Atmel Studio\6.2\lab4\lab4\lab4.asm</FILE><LINE>117</LINE></D_1>
+  <LCD_PRINT_HEX><FILE>C:\Users\Benni\Documents\Atmel Studio\6.2\lab4\lab4\lab4.asm</FILE><LINE>26</LINE></LCD_PRINT_HEX>
+  <WAIT><FILE>C:\Users\Benni\Documents\Atmel Studio\6.2\lab4\lab4\lab4.asm</FILE><LINE>133</LINE></WAIT>
+  <PORT_INIT><FILE>C:\Users\Benni\Documents\Atmel Studio\6.2\lab4\lab4\lab4.asm</FILE><LINE>105</LINE></PORT_INIT>
+  <BACKLIGHT_ON><FILE>C:\Users\Benni\Documents\Atmel Studio\6.2\lab4\lab4\lab4.asm</FILE><LINE>97</LINE></BACKLIGHT_ON>
+  <FOURBIT_INIT><FILE>C:\Users\Benni\Documents\Atmel Studio\6.2\lab4\lab4\lab4.asm</FILE><LINE>124</LINE></FOURBIT_INIT>
+  <DISP_CONFIG><FILE>C:\Users\Benni\Documents\Atmel Studio\6.2\lab4\lab4\lab4.asm</FILE><LINE>112</LINE></DISP_CONFIG>
+  <MAIN><FILE>C:\Users\Benni\Documents\Atmel Studio\6.2\lab4\lab4\lab4.asm</FILE><LINE>23</LINE></MAIN>
+  <NUMHEX><FILE>C:\Users\Benni\Documents\Atmel Studio\6.2\lab4\lab4\lab4.asm</FILE><LINE>37</LINE></NUMHEX>
+  <PRINT_NMB><FILE>C:\Users\Benni\Documents\Atmel Studio\6.2\lab4\lab4\lab4.asm</FILE><LINE>42</LINE></PRINT_NMB>
+  <LCD_ASCII><FILE>C:\Users\Benni\Documents\Atmel Studio\6.2\lab4\lab4\lab4.asm</FILE><LINE>77</LINE></LCD_ASCII>
+  <PRINT_LET><FILE>C:\Users\Benni\Documents\Atmel Studio\6.2\lab4\lab4\lab4.asm</FILE><LINE>50</LINE></PRINT_LET>
+  <LCD_PRINT><FILE>C:\Users\Benni\Documents\Atmel Studio\6.2\lab4\lab4\lab4.asm</FILE><LINE>57</LINE></LCD_PRINT>
+  <GET_CHAR><FILE>C:\Users\Benni\Documents\Atmel Studio\6.2\lab4\lab4\lab4.asm</FILE><LINE>63</LINE></GET_CHAR>
+  <LCD_WRITE4><FILE>C:\Users\Benni\Documents\Atmel Studio\6.2\lab4\lab4\lab4.asm</FILE><LINE>66</LINE></LCD_WRITE4>
+  <LCD_WRITE8><FILE>C:\Users\Benni\Documents\Atmel Studio\6.2\lab4\lab4\lab4.asm</FILE><LINE>72</LINE></LCD_WRITE8>
+  <LCD_COMMAND><FILE>C:\Users\Benni\Documents\Atmel Studio\6.2\lab4\lab4\lab4.asm</FILE><LINE>81</LINE></LCD_COMMAND>
+  <LCD_HOME><FILE>C:\Users\Benni\Documents\Atmel Studio\6.2\lab4\lab4\lab4.asm</FILE><LINE>87</LINE></LCD_HOME>
+  <LCD_ERASE><FILE>C:\Users\Benni\Documents\Atmel Studio\6.2\lab4\lab4\lab4.asm</FILE><LINE>93</LINE></LCD_ERASE>
+  <BACKLIGHT_OFF><FILE>C:\Users\Benni\Documents\Atmel Studio\6.2\lab4\lab4\lab4.asm</FILE><LINE>100</LINE></BACKLIGHT_OFF>
+  <D_3><FILE>C:\Users\Benni\Documents\Atmel Studio\6.2\lab4\lab4\lab4.asm</FILE><LINE>135</LINE></D_3>
+  <D_2><FILE>C:\Users\Benni\Documents\Atmel Studio\6.2\lab4\lab4\lab4.asm</FILE><LINE>137</LINE></D_2>
+  <D_1><FILE>C:\Users\Benni\Documents\Atmel Studio\6.2\lab4\lab4\lab4.asm</FILE><LINE>139</LINE></D_1>
  </LABELS>
 </ASSEMBLER_INFO>

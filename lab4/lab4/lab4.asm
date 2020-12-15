@@ -7,6 +7,7 @@
 	.equ	E			= 1
 
 	INIT:
+	call	LCD_PRINT_HEX
 	ldi		r16,HIGH(RAMEND)
 	out		SPH,r16
 	ldi		r16,LOW(RAMEND)
@@ -18,18 +19,39 @@
 	call	DISP_CONFIG		;Blinking cursor at this point
 	call	WAIT
 	call	LCD_PRINT_HEX
+	
 MAIN:
 	jmp		MAIN
 
 LCD_PRINT_HEX:
-	ldi		r17,145
+	ldi		r25,$30			;ASCII index offset 0-9
+	ldi		r26,$07			;ASCII index offset A-F
+	ldi		r17,$5F			;Test value****
+	
 	ldi		r16,0b11110000
 	and		r16,r17
 	swap	r16
+	cpi		r16,$0A		
+	brmi	NUMHEX
+	add		r16,r26			;The hexvalue is larger than 9, add extra offset
+NUMHEX:
+	add		r16,r25			;Add base offset
+	ldi		r24,0b00001111
+	
+
+PRINT_NMB:
+	ldi		r22,$30			;For the numbers, we add $30 to get ASCII
+	add		r16,r22
 	call	LCD_ASCII
-	swap	r16
-	and		r17,r16
+	;ldi		r16,0b00001111
+	;and		r16,r17
+	;add		r16,r22
+	;call	LCD_ASCII
+PRINT_LET:
+	ldi		r22,$37			;For the letters, we add $37 to get ASCII
+	add		r16,r22
 	call	LCD_ASCII
+	ldi		r16,0b00001111
 	ret
 
 LCD_PRINT:
