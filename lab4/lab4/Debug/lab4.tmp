@@ -1,0 +1,45 @@
+<ASSEMBLER_INFO>
+ <VERSION>2.1.57</VERSION>
+ <DEVICE>"ATmega328P"</DEVICE>
+ <WORKING_DIR>C:\Users\Benni\Documents\Atmel Studio\6.2\lab4\lab4\Debug</WORKING_DIR>
+ <INCLUDE_PATH>
+  <DIR>C:\Program Files (x86)\Atmel\Atmel Toolchain\AVR Assembler\Native\2.1.1175\avrassembler\Include</DIR>
+  <DIR></DIR>
+ </INCLUDE_PATH>
+ <SOURCE_FILE>C:\Users\Benni\Documents\Atmel Studio\6.2\lab4\lab4\lab4.asm</SOURCE_FILE>
+ <INCLUDED_FILES>
+  <FILE>C:\Program Files (x86)\Atmel\Atmel Toolchain\AVR Assembler\Native\2.1.1175\avrassembler\Include\m328Pdef.inc</FILE>
+ </INCLUDED_FILES>
+ <OBJECT_FILES>
+  <FILE>C:\Users\Benni\Documents\Atmel Studio\6.2\lab4\lab4\Debug/lab4.obj</FILE>
+ </OBJECT_FILES>
+ <HEX_FILES>
+  <FILE>lab4.hex</FILE>
+ </HEX_FILES>
+ <OUTPUT_FILES>
+  <FILE>lab4.map</FILE>
+  <FILE>lab4.lss</FILE>
+ </OUTPUT_FILES>
+ <LABELS>
+  <INIT><FILE>C:\Users\Benni\Documents\Atmel Studio\6.2\lab4\lab4\lab4.asm</FILE><LINE>9</LINE></INIT>
+  <WAIT><FILE>C:\Users\Benni\Documents\Atmel Studio\6.2\lab4\lab4\lab4.asm</FILE><LINE>111</LINE></WAIT>
+  <PORT_INIT><FILE>C:\Users\Benni\Documents\Atmel Studio\6.2\lab4\lab4\lab4.asm</FILE><LINE>83</LINE></PORT_INIT>
+  <BACKLIGHT_ON><FILE>C:\Users\Benni\Documents\Atmel Studio\6.2\lab4\lab4\lab4.asm</FILE><LINE>75</LINE></BACKLIGHT_ON>
+  <FOURBIT_INIT><FILE>C:\Users\Benni\Documents\Atmel Studio\6.2\lab4\lab4\lab4.asm</FILE><LINE>102</LINE></FOURBIT_INIT>
+  <DISP_CONFIG><FILE>C:\Users\Benni\Documents\Atmel Studio\6.2\lab4\lab4\lab4.asm</FILE><LINE>90</LINE></DISP_CONFIG>
+  <LCD_PRINT_HEX><FILE>C:\Users\Benni\Documents\Atmel Studio\6.2\lab4\lab4\lab4.asm</FILE><LINE>24</LINE></LCD_PRINT_HEX>
+  <MAIN><FILE>C:\Users\Benni\Documents\Atmel Studio\6.2\lab4\lab4\lab4.asm</FILE><LINE>21</LINE></MAIN>
+  <LCD_ASCII><FILE>C:\Users\Benni\Documents\Atmel Studio\6.2\lab4\lab4\lab4.asm</FILE><LINE>55</LINE></LCD_ASCII>
+  <LCD_PRINT><FILE>C:\Users\Benni\Documents\Atmel Studio\6.2\lab4\lab4\lab4.asm</FILE><LINE>35</LINE></LCD_PRINT>
+  <GET_CHAR><FILE>C:\Users\Benni\Documents\Atmel Studio\6.2\lab4\lab4\lab4.asm</FILE><LINE>41</LINE></GET_CHAR>
+  <LCD_WRITE4><FILE>C:\Users\Benni\Documents\Atmel Studio\6.2\lab4\lab4\lab4.asm</FILE><LINE>44</LINE></LCD_WRITE4>
+  <LCD_WRITE8><FILE>C:\Users\Benni\Documents\Atmel Studio\6.2\lab4\lab4\lab4.asm</FILE><LINE>50</LINE></LCD_WRITE8>
+  <LCD_COMMAND><FILE>C:\Users\Benni\Documents\Atmel Studio\6.2\lab4\lab4\lab4.asm</FILE><LINE>59</LINE></LCD_COMMAND>
+  <LCD_HOME><FILE>C:\Users\Benni\Documents\Atmel Studio\6.2\lab4\lab4\lab4.asm</FILE><LINE>65</LINE></LCD_HOME>
+  <LCD_ERASE><FILE>C:\Users\Benni\Documents\Atmel Studio\6.2\lab4\lab4\lab4.asm</FILE><LINE>71</LINE></LCD_ERASE>
+  <BACKLIGHT_OFF><FILE>C:\Users\Benni\Documents\Atmel Studio\6.2\lab4\lab4\lab4.asm</FILE><LINE>78</LINE></BACKLIGHT_OFF>
+  <D_3><FILE>C:\Users\Benni\Documents\Atmel Studio\6.2\lab4\lab4\lab4.asm</FILE><LINE>113</LINE></D_3>
+  <D_2><FILE>C:\Users\Benni\Documents\Atmel Studio\6.2\lab4\lab4\lab4.asm</FILE><LINE>115</LINE></D_2>
+  <D_1><FILE>C:\Users\Benni\Documents\Atmel Studio\6.2\lab4\lab4\lab4.asm</FILE><LINE>117</LINE></D_1>
+ </LABELS>
+</ASSEMBLER_INFO>

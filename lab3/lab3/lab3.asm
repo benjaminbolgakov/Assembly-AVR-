@@ -33,7 +33,6 @@ INIT:
 	call	TIMER_INIT
 
 MAIN:
-	;call	TIME_TICK
 	jmp		MAIN
 
 TIMER_INIT:
@@ -47,7 +46,6 @@ TIMER_INIT:
 	sts		TIMSK1,r16
 	sei
 	ret
-
 MEM_INIT:
 	ldi		ZH,HIGH(LINE)
 	ldi		ZL,LOW(LINE)
@@ -67,14 +65,21 @@ MEM_WRITE_LINE:
 	ldi		r20,$00
 	st		Z,r20
 	ldi		r21,6			;Set loop-index	TIME
-	ldi		r20,$01			;Loads 1:s to be put into clock
 	ret
 //Writes a starting time into SRAM(TIME)
 MEM_WRITE_CLK:
+	ldi		r20,$02			
 	st		X+,r20
-	dec		r21
-	cpi		r21,0
-	brne	MEM_WRITE_CLK
+	ldi		r20,$03			
+	st		X+,r20
+	ldi		r20,$05			
+	st		X+,r20
+	ldi		r20,$09			
+	st		X+,r20
+	ldi		r20,$04			
+	st		X+,r20
+	ldi		r20,$05			
+	st		X+,r20
 	clr		r20
 	ret
 
@@ -127,7 +132,6 @@ TICK_DONE:
 	out		SREG,r17
 	pop		r17
 	reti
-
 TIME_FORMAT:
 	ldi		XH,HIGH(TIME)
 	ldi		XL,LOW(TIME)
@@ -151,7 +155,6 @@ TIME_WRITE_NMB:
 	jmp		TIME_WRITE_NMB
 DONE:
 	ret
-
 TIME_WRITE_COL:
 	st		Z+,r17
 	ldi		r22,2			;Reset loop-index for colons
@@ -171,8 +174,6 @@ LCD_PRINT:
 	ret
 GET_CHAR:
 	ld		r16,Z+
-	;cpi	r16,$00			;Determine if the string is empty
-	;breq	STOP			;Stop if whole byte is empty
 	ret
 LCD_WRITE4:
 	sbi		PORTB,E			
@@ -189,35 +190,29 @@ LCD_ASCII:
 	sbi		PORTB,0			;Config LCD for ASCII
 	call	LCD_WRITE8
 	ret
-
 LCD_COMMAND:
 	cbi		PORTB,0			;Config LCD for commands
 	call	LCD_WRITE8
 	ret
-STOP:
-	jmp		STOP
-TEST:
-	call	TIME_TICK
-	jmp		TEST
 
 //Set write-pos at column 0 (home/start pos)
 LCD_HOME:
 	ldi		r16,0b00000010
 	call	LCD_COMMAND
 	ret
+
 //Erase the content on screen
 LCD_ERASE:
 	ldi		r16,LCD_CLR
 	call	LCD_COMMAND
 	ret
-
-
 BACKLIGHT_ON:
 	sbi		PORTB,2
 	ret
 BACKLIGHT_OFF:
 	cbi		PORTB,2
 	ret
+
 //Init the ports accordingly
 PORT_INIT:
 	ldi		r16,$FF
@@ -236,6 +231,7 @@ DISP_CONFIG:
 	ldi		r16,E_MODE
 	call	LCD_COMMAND
 	ret
+
 //Init the display to receive and process 4bit data
 FOURBIT_INIT:
 	ldi		r16,$30
@@ -245,7 +241,6 @@ FOURBIT_INIT:
 	ldi		r16,$20
 	call	LCD_WRITE4
 	ret
-
 
 WAIT:
 	ldi		r20,3
