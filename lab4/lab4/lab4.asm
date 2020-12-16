@@ -7,7 +7,6 @@
 	.equ	E			= 1
 
 	INIT:
-	call	LCD_PRINT_HEX
 	ldi		r16,HIGH(RAMEND)
 	out		SPH,r16
 	ldi		r16,LOW(RAMEND)
@@ -18,40 +17,27 @@
 	call	FOURBIT_INIT
 	call	DISP_CONFIG		;Blinking cursor at this point
 	call	WAIT
+	call	ADC_READ8
 	call	LCD_PRINT_HEX
 	
 MAIN:
 	jmp		MAIN
 
-LCD_PRINT_HEX:
-	ldi		r25,$30			;ASCII index offset 0-9
-	ldi		r26,$07			;ASCII index offset A-F
-	ldi		r17,$5F			;Test value****
-	
-	ldi		r16,0b11110000
-	and		r16,r17
-	swap	r16
-	cpi		r16,$0A		
-	brmi	NUMHEX
-	add		r16,r26			;The hexvalue is larger than 9, add extra offset
-NUMHEX:
-	add		r16,r25			;Add base offset
-	ldi		r24,0b00001111
-	
-
-PRINT_NMB:
-	ldi		r22,$30			;For the numbers, we add $30 to get ASCII
-	add		r16,r22
-	call	LCD_ASCII
-	;ldi		r16,0b00001111
-	;and		r16,r17
-	;add		r16,r22
-	;call	LCD_ASCII
-PRINT_LET:
-	ldi		r22,$37			;For the letters, we add $37 to get ASCII
-	add		r16,r22
-	call	LCD_ASCII
-	ldi		r16,0b00001111
+//Analog-Digital convertion
+ADC_READ8:
+	ldi		r16,(1<<REFS0)|(1<<ADLAR)|0
+	sts		ADMUX,r16
+	ldi		r16,(1<<ADEN)|7
+	sts		ADCSRA,r16
+CONVERT:
+	lds		r16,ADCSRA
+	ori		r16,(1<<ADSC)
+	sts		ADCSRA,r16
+ADC_BUSY:
+	lds		r16,ADCSRA
+	sbrc	r16,ADSC
+	jmp		ADC_BUSY
+	lds		r16,ADCH
 	ret
 
 LCD_PRINT:
@@ -81,6 +67,33 @@ LCD_ASCII:
 LCD_COMMAND:
 	cbi		PORTB,0			;Config LCD for commands
 	call	LCD_WRITE8
+	ret
+
+//INPUT: r17
+LCD_PRINT_HEX:
+	ldi		r25,$30			;ASCII index offset 0-9
+	ldi		r26,$37			;ASCII index offset A-F
+	ldi		r27,2
+	swap	r17				;To print in correct order, swap the lower and higher bounds.
+FORMAT:
+	cpi		r27,0
+	breq	DONE
+	dec		r27
+	ldi		r16,0b00001111
+	and		r16,r17
+	cpi		r16,$0A		
+	brmi	NUMHEX
+	add		r16,r26			;The hexvalue is larger than 9, add extra offset
+	call	LCD_ASCII
+	jmp		FORMAT
+NEXT:
+	swap	r17				;Swap again to process the remaining 4bits
+	jmp		FORMAT
+NUMHEX:
+	add		r16,r25			;Add base offset
+	call	LCD_ASCII
+	jmp		NEXT
+DONE:
 	ret
 
 //Set write-pos at column 0 (home/start pos)
@@ -130,7 +143,7 @@ FOURBIT_INIT:
 	call	LCD_WRITE4
 	ret
 
-	WAIT:
+WAIT:
 	ldi		r20,3
 D_3:
 	ldi		r19,0
