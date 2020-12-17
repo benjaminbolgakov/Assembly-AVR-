@@ -18,14 +18,86 @@
 	call	DISP_CONFIG		;Blinking cursor at this point
 	call	WAIT
 	call	ADC_READ8
-	call	LCD_PRINT_HEX
-	
+	;mov		r17,r16
+	;call	LCD_PRINT_HEX
 MAIN:
+	call	KEY_READ
+	ldi		r17,$55
+	call	LCD_PRINT_HEX
 	jmp		MAIN
+
+KEY_READ:
+	call	KEY
+	tst		r16
+	brne	KEY_READ
+KEY_WAIT_FOR_PRESS:
+	call	KEY
+	tst		r16
+	breq	KEY_WAIT_FOR_PRESS
+	ret
+KEY:
+	call	ADC_READ8
+	//Check for RIGHT btn
+	mov		r17,r16
+	ldi		r18,12
+	sub		r17,r18
+	brmi	RIGHT		;0
+	//Check for UP btn
+	mov		r17,r16
+	ldi		r18,44
+	sub		r17,r18
+	brmi	UP			;24
+	//Check for DOWN btn
+	mov		r17,r16
+	ldi		r18,83
+	sub		r17,r18
+	brmi	DOWN		;64
+	//Check for LEFT btn
+	mov		r17,r16
+	ldi		r18,130
+	sub		r17,r18
+	brmi	LEFT		;102
+	//Check for RIGHT btn
+	mov		r17,r16
+	ldi		r18,207
+	sub		r17,r18
+	brmi	SELECT		;159
+	jmp		ZERO		
+RIGHT:
+	ldi		r16,5
+	
+	jmp		KEYDONE
+UP:
+	ldi		r16,4
+	ldi		r17,$01
+	call	LCD_PRINT_HEX
+	jmp		KEYDONE
+DOWN:
+	ldi		r16,3
+	ldi		r17,$02
+	call	LCD_PRINT_HEX
+	jmp		KEYDONE
+LEFT:
+	ldi		r16,2
+	ldi		r17,$03
+	call	LCD_PRINT_HEX
+	jmp		KEYDONE
+SELECT:
+	ldi		r16,1
+	ldi		r17,$04
+	call	LCD_PRINT_HEX
+	jmp		KEYDONE
+ZERO:
+	clr		r16
+	ldi		r17,$05
+	call	LCD_PRINT_HEX
+	jmp		KEYDONE
+KEYDONE:
+	ret
 
 //Analog-Digital convertion
 ADC_READ8:
-	ldi		r16,(1<<REFS0)|(1<<ADLAR)|0
+	ldi		r16,(1<<REFS0)|(1<<ADLAR)
 	sts		ADMUX,r16
 	ldi		r16,(1<<ADEN)|7
 	sts		ADCSRA,r16
@@ -37,7 +109,7 @@ ADC_BUSY:
 	lds		r16,ADCSRA
 	sbrc	r16,ADSC
 	jmp		ADC_BUSY
-	lds		r16,ADCH
+	lds		r16,ADCH		;Store result to be processed
 	ret
 
 LCD_PRINT:
@@ -119,6 +191,8 @@ PORT_INIT:
 	ldi		r16,$FF
 	out		DDRB,r16		;output
 	out		DDRD,r16		;output
+	ldi		r16,$00
+	out		DDRC,r16
 	ret
 
 //Configures the display to function according to FN_SET, DISP_ON etc..
