@@ -18,12 +18,10 @@
 	call	DISP_CONFIG		;Blinking cursor at this point
 	call	WAIT
 	call	ADC_READ8
-	;mov		r17,r16
-	;call	LCD_PRINT_HEX
-MAIN:
-	call	KEY_READ
-	ldi		r17,$55
 	call	LCD_PRINT_HEX
+MAIN:
+	;call	KEY_READ
+	;call	LCD_COL
 	jmp		MAIN
 
 KEY_READ:
@@ -36,7 +34,15 @@ KEY_WAIT_FOR_PRESS:
 	breq	KEY_WAIT_FOR_PRESS
 	ret
 KEY:
+	;IDLE =		$FF					=	255
+	;SELECT =	$9F||$AA||$A4||$99	=	159||170
+	;LEFT =		$66					=	102
+	;DOWN =		$40||$44			=	64
+	;UP =		$18||$11			=	24
+	;RIGHT =	$00					=	0
 	call	ADC_READ8
+	cpi		r16,$FF		;Check for idle state
+	breq	IDLE
 	//Check for RIGHT btn
 	mov		r17,r16
 	ldi		r18,12
@@ -57,42 +63,38 @@ KEY:
 	ldi		r18,130
 	sub		r17,r18
 	brmi	LEFT		;102
-	//Check for RIGHT btn
+	/*Check for SELECT btn
 	mov		r17,r16
 	ldi		r18,207
 	sub		r17,r18
 	brmi	SELECT		;159
-	jmp		ZERO		
-RIGHT:
-	ldi		r16,5
-	
-	jmp		KEYDONE
-UP:
-	ldi		r16,4
-	ldi		r17,$01
-	call	LCD_PRINT_HEX
-	jmp		KEYDONE
-DOWN:
-	ldi		r16,3
-	ldi		r17,$02
-	call	LCD_PRINT_HEX
-	jmp		KEYDONE
-LEFT:
-	ldi		r16,2
-	ldi		r17,$03
-	call	LCD_PRINT_HEX
+	*/
+	jmp		SELECT
+IDLE:
+	ldi		r16,0
 	jmp		KEYDONE
 SELECT:
 	ldi		r16,1
-	ldi		r17,$04
-	call	LCD_PRINT_HEX
 	jmp		KEYDONE
-ZERO:
-	clr		r16
-	ldi		r17,$05
-	call	LCD_PRINT_HEX
+LEFT:
+	ldi		r16,2
+	jmp		KEYDONE
+DOWN:
+	ldi		r16,3
+	jmp		KEYDONE
+UP:
+	ldi		r16,4
+	jmp		KEYDONE
+RIGHT:
+	ldi		r16,5
 	jmp		KEYDONE
 KEYDONE:
+	ret
+
+LCD_COL:
+	ldi		r17,0b10000000		;Load prerequisite 
+	or		r16,r17				;Add together with wanted 
+	call	LCD_COMMAND
 	ret
 
 //Analog-Digital convertion
@@ -141,17 +143,17 @@ LCD_COMMAND:
 	call	LCD_WRITE8
 	ret
 
-//INPUT: r17
+//INPUT: r16
 LCD_PRINT_HEX:
 	ldi		r25,$30			;ASCII index offset 0-9
 	ldi		r26,$37			;ASCII index offset A-F
 	ldi		r27,2
-	swap	r17				;To print in correct order, swap the lower and higher bounds.
+	swap	r16				;To print in correct order, swap the lower and higher bounds.
 FORMAT:
 	cpi		r27,0
 	breq	DONE
 	dec		r27
-	ldi		r16,0b00001111
+	ldi		r17,0b00001111
 	and		r16,r17
 	cpi		r16,$0A		
 	brmi	NUMHEX
@@ -159,7 +161,7 @@ FORMAT:
 	call	LCD_ASCII
 	jmp		FORMAT
 NEXT:
-	swap	r17				;Swap again to process the remaining 4bits
+	swap	r16				;Swap again to process the remaining 4bits
 	jmp		FORMAT
 NUMHEX:
 	add		r16,r25			;Add base offset
