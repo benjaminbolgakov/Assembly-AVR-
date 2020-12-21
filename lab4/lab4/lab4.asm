@@ -39,13 +39,30 @@ MAIN:
 	ldi		r16,4
 	call	LINE_UPDATE*/
 	jmp		MAIN
+
+LINE_PRINT:
+	call	LCD_HOME
+	ldi		ZH,HIGH(LINE)
+	ldi		ZL,LOW(LINE)
+	call	LCD_PRINT
+	ret
+LCD_PRINT:
+	call	GET_CHAR
+	call	LCD_ASCII
+	cpi		r16,$00			;Determine if the string is empty
+	brne	LCD_PRINT	
+	ret
+
+GET_CHAR:
+	ld		r16,Z+
+	ret
 	
 LCD_COL:
 	ldi		XH,HIGH(CUR_POS)
 	ldi		XL,LOW(CUR_POS)
-	cpi		r16,2
+	cpi		r17,2
 	breq	BACK
-	cpi		r16,5
+	cpi		r17,5
 	breq	FORWARD
 	ld		r16,X
 	jmp		LCD_COl_DONE
@@ -110,11 +127,11 @@ UPDATED:
 
 KEY_READ:
 	call	KEY
-	tst		r16
+	tst		r17
 	brne	KEY_READ
 KEY_WAIT_FOR_PRESS:
 	call	KEY
-	tst		r16
+	tst		r17
 	breq	KEY_WAIT_FOR_PRESS
 	ret
 
@@ -147,22 +164,22 @@ KEY:
 	cpi		r17,207
 	brlo	SELECT		;159
 IDLE:
-	ldi		r16,0
+	ldi		r17,0
 	jmp		KEYDONE
 SELECT:
-	ldi		r16,1
+	ldi		r17,1
 	jmp		KEYDONE
 LEFT:
-	ldi		r16,2
+	ldi		r17,2
 	jmp		KEYDONE
 DOWN:
-	ldi		r16,3
+	ldi		r17,3
 	jmp		KEYDONE
 UP:
-	ldi		r16,4
+	ldi		r17,4
 	jmp		KEYDONE
 RIGHT:
-	ldi		r16,5
+	ldi		r17,5
 	jmp		KEYDONE
 KEYDONE:
 	ret
@@ -185,7 +202,7 @@ ADC_BUSY:
 	ret
 
 SWITCH_BACKLIGHT:
-	cpi		r16,1
+	cpi		r17,1
 	brne	SWITCH_DONE
 	sbic	PORTB,2
 	jmp		OFF
@@ -198,21 +215,6 @@ OFF:
 SWITCH_DONE:
 	ret
 
-LINE_PRINT:
-	call	LCD_HOME
-	ldi		ZH,HIGH(LINE)
-	ldi		ZL,LOW(LINE)
-	call	LCD_PRINT
-	ret
-LCD_PRINT:
-	call	GET_CHAR
-	call	LCD_ASCII
-	cpi		r16,$00			;Determine if the string is empty
-	brne	LCD_PRINT	
-	ret
-GET_CHAR:
-	ld		r16,Z+
-	ret
 LCD_WRITE4:
 	sbi		PORTB,E			
 	out		PORTD,r16		;Output data
