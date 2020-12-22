@@ -17,6 +17,7 @@ LINE:		.byte 17
 	ldi		r16,LOW(RAMEND)
 	out		SPL,r16
 	call	MEM_INIT
+	;call	MAIN
 	call	WAIT			;Delay to let LCD start up
 	call	PORT_INIT
 	call	BACKLIGHT_ON	
@@ -24,7 +25,9 @@ LINE:		.byte 17
 	call	DISP_CONFIG		;Blinking cursor at this point
 	call	WAIT
 MAIN:
+	;ldi		r17,3
 	;call	LINE_PRINT
+	call	LINE_UPDATE
 	call	LCD_COL			;Update current column
 	call	SWITCH_BACKLIGHT
 	call	KEY_READ			
@@ -39,6 +42,51 @@ MAIN:
 	ldi		r16,4
 	call	LINE_UPDATE*/
 	jmp		MAIN
+
+LINE_UPDATE:
+	ldi		ZH,HIGH(LINE)
+	ldi		ZL,LOW(LINE)
+	ldi		XH,HIGH(CUR_POS)
+	ldi		XL,LOW(CUR_POS)
+	ld		r20,X			;Loop index to change data on correct position in LINE
+	andi	r20,0b00011111
+	;ldi		r20,0b00000010
+	cpi		r17,3
+	breq	BROWSE_DOWN
+	cpi		r17,4
+	breq	BROWSE_UP
+	jmp		UPDATED
+BROWSE_DOWN:
+	ld		r16,Z+			;Get LINE value from current cursor position
+	dec		r20
+	brpl	BROWSE_DOWN
+	cpi		r16,' '			;Check for lowest bound
+	breq	UPDATED			
+	cpi		r16,'A'
+	breq	UPDATED
+	dec		r16
+	st		-Z,r16
+	call	LCD_ASCII
+	jmp		UPDATED
+BROWSE_UP:
+	ld		r16,Z+			;Get LINE value from current cursor position
+	dec		r20
+	brpl	BROWSE_UP		
+	cpi		r16,'Z'			;Check for highest bound
+	breq	UPDATED	
+	ldi		r20,' '
+	cpse	r16,r20
+	jmp		NOTEMPTY
+	ldi		r16,$41
+	st		-Z,r16
+	call	LCD_ASCII
+	jmp		UPDATED
+NOTEMPTY:
+	inc		r16
+	st		-Z,r16
+	call	LCD_ASCII
+UPDATED:
+	ret
 
 LINE_PRINT:
 	call	LCD_HOME
@@ -56,6 +104,27 @@ LCD_PRINT:
 GET_CHAR:
 	ld		r16,Z+
 	ret
+
+LCD_WRITE4:
+	sbi		PORTB,E			
+	out		PORTD,r16		;Output data
+	cbi		PORTB,E			;Signals to LCD that new data is available
+	call	WAIT			
+	ret
+LCD_WRITE8:
+	call	LCD_WRITE4		;Write first 4 bits
+	swap	r16				;Place remaining bits in position
+	call	LCD_WRITE4		;Write remaining 4 bits
+	ret
+LCD_ASCII:
+	sbi		PORTB,0			;Config LCD for ASCII
+	call	LCD_WRITE8
+	ret
+LCD_COMMAND:
+	cbi		PORTB,0			;Config LCD for commands
+	call	LCD_WRITE8
+	ret
+
 	
 LCD_COL:
 	ldi		XH,HIGH(CUR_POS)
@@ -83,48 +152,6 @@ LCD_COl_DONE:
 	call	LCD_COMMAND
 	ret
 
-LINE_UPDATE:
-	ldi		ZH,HIGH(LINE)
-	ldi		ZL,LOW(LINE)
-	ldi		XH,HIGH(CUR_POS)
-	ldi		XL,LOW(CUR_POS)
-	ld		r20,X			;Loop index to change data on correct position in LINE
-	andi	r20,0b00011111
-	cpi		r16,3
-	breq	BROWSE_DOWN
-	cpi		r16,4
-	breq	BROWSE_UP
-	jmp		UPDATED
-BROWSE_DOWN:
-	ld		r17,Z+			;Get LINE value from current cursor position
-	dec		r20
-	brne	BROWSE_DOWN
-	cpi		r17,' '			;Check for lowest bound
-	breq	UPDATED			
-	cpi		r17,'A'
-	breq	UPDATED
-	dec		r17
-	st		Z,r17
-	jmp		UPDATED
-BROWSE_UP:
-	ld		r17,Z+			;Get LINE value from current cursor position
-	dec		r20
-	brne	BROWSE_UP
-	ld		r17,Z			
-	cpi		r17,'Z'			;Check for highest bound
-	breq	UPDATED	
-	ldi		r20,' '
-	cpse	r17,r20
-	jmp		LETTERS
-	ldi		r17,$41
-	st		Z,r17
-	jmp		UPDATED
-LETTERS:
-	inc		r17
-	st		Z,r17
-UPDATED:
-	ret
-
 KEY_READ:
 	call	KEY
 	tst		r17
@@ -144,24 +171,19 @@ KEY:
 	;RIGHT =	$00					=	0
 	call	ADC_READ8
 	//Check for RIGHT btn
-	mov		r17,r16
-	cpi		r17,12
+	cpi		r16,12
 	brlo	RIGHT		;0
 	//Check for UP btn
-	mov		r17,r16
-	cpi		r17,44
+	cpi		r16,44
 	brlo	UP			;24
 	//Check for DOWN btn
-	mov		r17,r16
-	cpi		r17,83
+	cpi		r16,83
 	brlo	DOWN		;64
 	//Check for LEFT btn
-	mov		r17,r16
-	cpi		r17,130
+	cpi		r16,130
 	brlo	LEFT		;102
 	//Check for SELECT btn
-	mov		r17,r16
-	cpi		r17,207
+	cpi		r16,207
 	brlo	SELECT		;159
 IDLE:
 	ldi		r17,0
@@ -215,26 +237,6 @@ OFF:
 SWITCH_DONE:
 	ret
 
-LCD_WRITE4:
-	sbi		PORTB,E			
-	out		PORTD,r16		;Output data
-	cbi		PORTB,E			;Signals to LCD that new data is available
-	call	WAIT			
-	ret
-LCD_WRITE8:
-	call	LCD_WRITE4		;Write first 4 bits
-	swap	r16				;Place remaining bits in position
-	call	LCD_WRITE4		;Write remaining 4 bits
-	ret
-LCD_ASCII:
-	sbi		PORTB,0			;Config LCD for ASCII
-	call	LCD_WRITE8
-	ret
-LCD_COMMAND:
-	cbi		PORTB,0			;Config LCD for commands
-	call	LCD_WRITE8
-	ret
-
 //INPUT: r16
 LCD_PRINT_HEX:
 	ldi		r25,$30			;ASCII index offset 0-9
@@ -277,6 +279,7 @@ MEM_INIT:
 MEM_WRITE_LINE:
 	st		Z+,r20
 	dec		r21
+	;inc		r20				//::::::::::::::::::::::::::::::::::::
 	cpi		r21,0
 	brne	MEM_WRITE_LINE
 	ldi		r20,$00
