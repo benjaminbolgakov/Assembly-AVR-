@@ -17,7 +17,6 @@ LINE:		.byte 17
 	ldi		r16,LOW(RAMEND)
 	out		SPL,r16
 	call	MEM_INIT
-	;call	MAIN
 	call	WAIT			;Delay to let LCD start up
 	call	PORT_INIT
 	call	BACKLIGHT_ON	
@@ -25,22 +24,10 @@ LINE:		.byte 17
 	call	DISP_CONFIG		;Blinking cursor at this point
 	call	WAIT
 MAIN:
-	;ldi		r17,3
-	;call	LINE_PRINT
 	call	LINE_UPDATE
 	call	LCD_COL			;Update current column
 	call	SWITCH_BACKLIGHT
 	call	KEY_READ			
-	
-	/*call	LINE_UPDATE
-	ldi		r16,5
-	call	LCD_COL
-	ldi		r16,5
-	call	LCD_COL
-	ldi		r16,3
-	call	LINE_UPDATE
-	ldi		r16,4
-	call	LINE_UPDATE*/
 	jmp		MAIN
 
 LINE_UPDATE:
@@ -50,7 +37,6 @@ LINE_UPDATE:
 	ldi		XL,LOW(CUR_POS)
 	ld		r20,X			;Loop index to change data on correct position in LINE
 	andi	r20,0b00011111
-	;ldi		r20,0b00000010
 	cpi		r17,3
 	breq	BROWSE_DOWN
 	cpi		r17,4
@@ -111,21 +97,23 @@ LCD_WRITE4:
 	cbi		PORTB,E			;Signals to LCD that new data is available
 	call	WAIT			
 	ret
+
 LCD_WRITE8:
 	call	LCD_WRITE4		;Write first 4 bits
 	swap	r16				;Place remaining bits in position
 	call	LCD_WRITE4		;Write remaining 4 bits
 	ret
+
 LCD_ASCII:
 	sbi		PORTB,0			;Config LCD for ASCII
 	call	LCD_WRITE8
 	ret
+
 LCD_COMMAND:
 	cbi		PORTB,0			;Config LCD for commands
 	call	LCD_WRITE8
 	ret
 
-	
 LCD_COL:
 	ldi		XH,HIGH(CUR_POS)
 	ldi		XL,LOW(CUR_POS)
@@ -163,12 +151,6 @@ KEY_WAIT_FOR_PRESS:
 	ret
 
 KEY:
-	;IDLE =		$FF					=	255
-	;SELECT =	$9F||$AA||$A4||$99	=	159||170
-	;LEFT =		$66					=	102
-	;DOWN =		$40||$44			=	64
-	;UP =		$18||$11			=	24
-	;RIGHT =	$00					=	0
 	call	ADC_READ8
 	//Check for RIGHT btn
 	cpi		r16,12

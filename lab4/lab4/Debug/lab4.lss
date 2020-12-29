@@ -1,5 +1,5 @@
 
-AVRASM ver. 2.1.57  C:\Users\Benni\Documents\Atmel Studio\6.2\lab4\lab4\lab4.asm Tue Dec 22 20:54:03 2020
+AVRASM ver. 2.1.57  C:\Users\Benni\Documents\Atmel Studio\6.2\lab4\lab4\lab4.asm Wed Dec 23 12:36:41 2020
 
 [builtin](2): Including file 'C:\Program Files (x86)\Atmel\Atmel Toolchain\AVR Assembler\Native\2.1.1175\avrassembler\Include\m328Pdef.inc'
                  
@@ -1000,7 +1000,6 @@ AVRASM ver. 2.1.57  C:\Users\Benni\Documents\Atmel Studio\6.2\lab4\lab4\lab4.asm
 000002 ef0f      	ldi		r16,LOW(RAMEND)
 000003 bf0d      	out		SPL,r16
 000004 940e 00e7 	call	MEM_INIT
-                 	;call	MAIN
 000006 940e 0124 	call	WAIT			;Delay to let LCD start up
 000008 940e 0106 	call	PORT_INIT
 00000a 940e 0102 	call	BACKLIGHT_ON	
@@ -1008,22 +1007,10 @@ AVRASM ver. 2.1.57  C:\Users\Benni\Documents\Atmel Studio\6.2\lab4\lab4\lab4.asm
 00000e 940e 010c 	call	DISP_CONFIG		;Blinking cursor at this point
 000010 940e 0124 	call	WAIT
                  MAIN:
-                 	;ldi		r17,3
-                 	;call	LINE_PRINT
 000012 940e 001c 	call	LINE_UPDATE
 000014 940e 006d 	call	LCD_COL			;Update current column
 000016 940e 00c0 	call	SWITCH_BACKLIGHT
 000018 940e 0085 	call	KEY_READ			
-                 	
-                 	/*call	LINE_UPDATE
-                 	ldi		r16,5
-                 	call	LCD_COL
-                 	ldi		r16,5
-                 	call	LCD_COL
-                 	ldi		r16,3
-                 	call	LINE_UPDATE
-                 	ldi		r16,4
-                 	call	LINE_UPDATE*/
 00001a 940c 0012 	jmp		MAIN
                  
                  LINE_UPDATE:
@@ -1033,7 +1020,6 @@ AVRASM ver. 2.1.57  C:\Users\Benni\Documents\Atmel Studio\6.2\lab4\lab4\lab4.asm
 00001f e0a0      	ldi		XL,LOW(CUR_POS)
 000020 914c      	ld		r20,X			;Loop index to change data on correct position in LINE
 000021 714f      	andi	r20,0b00011111
-                 	;ldi		r20,0b00000010
 000022 3013      	cpi		r17,3
 000023 f021      	breq	BROWSE_DOWN
 000024 3014      	cpi		r17,4
@@ -1108,7 +1094,6 @@ AVRASM ver. 2.1.57  C:\Users\Benni\Documents\Atmel Studio\6.2\lab4\lab4\lab4.asm
 00006a 940e 005f 	call	LCD_WRITE8
 00006c 9508      	ret
                  
-                 	
                  LCD_COL:
 00006d e0b1      	ldi		XH,HIGH(CUR_POS)
 00006e e0a0      	ldi		XL,LOW(CUR_POS)
@@ -1146,12 +1131,6 @@ AVRASM ver. 2.1.57  C:\Users\Benni\Documents\Atmel Studio\6.2\lab4\lab4\lab4.asm
 00008d 9508      	ret
                  
                  KEY:
-                 	;IDLE =		$FF					=	255
-                 	;SELECT =	$9F||$AA||$A4||$99	=	159||170
-                 	;LEFT =		$66					=	102
-                 	;DOWN =		$40||$44			=	64
-                 	;UP =		$18||$11			=	24
-                 	;RIGHT =	$00					=	0
 00008e 940e 00ad 	call	ADC_READ8
                  	//Check for RIGHT btn
 000090 300c      	cpi		r16,12

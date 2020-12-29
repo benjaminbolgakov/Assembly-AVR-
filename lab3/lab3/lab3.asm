@@ -11,12 +11,14 @@
 
 	.equ	E			= 1
 
+CTR_LIM:	.db 9,5,9,5,9,2
 .dseg
 .org		$100
 TIME:		.byte 6
-LINE:		.db	' '
+.org		$120
+LINE:		.byte 17
 .cseg
-TEXT:		.db	"00:00:00",$00
+
 
 INIT:
 	ldi		r16,HIGH(RAMEND)
@@ -25,6 +27,9 @@ INIT:
 	out		SPL,r16
 	call	MEM_INIT
 	call	TIME_FORMAT
+
+	;call	MAIN
+
 	call	WAIT			;Delay to let LCD start up
 	call	PORT_INIT
 	call	BACKLIGHT_ON	
@@ -33,8 +38,67 @@ INIT:
 	call	TIMER_INIT
 
 MAIN:
+	;call	TIME_TICK
 	jmp		MAIN
 
+TIME_TICK:
+	ldi		XH,HIGH(TIME+5)
+	ldi		XL,LOW(TIME+5)
+	ldi		ZH,HIGH(CTR_LIM*2)
+	ldi		ZL,LOW(CTR_LIM*2)
+	push	r17
+	in		r17,SREG
+	push	XH
+	push	XL
+	push	ZH
+	push	ZL
+	push	r16
+	push	r18
+TIME_LOOP:
+	lpm		r18,Z
+	ld		r16,X
+	cpi		r16,3			;Control for the hour 23
+	breq	CONTROL			;Control for the hour 23
+	cp		r16,r18
+	brne	TICK
+	call	CLEAR
+	lpm		r18,Z+
+	ld		r16,-X
+	jmp		TIME_LOOP
+CONTROL:
+	dec		XL
+	ld		r16,X
+	inc		XL
+	cpi		r16,2
+	brne	TICK
+	clr		r16
+	st		X+,r16
+	inc		ZL
+	dec		XL
+	dec		XL
+	jmp		TIME_LOOP
+TICK:
+	ld		r16,X
+	inc		r16
+	jmp		TICK_DONE
+CLEAR:
+	clr		r16
+	st		X,r16
+	ret
+TICK_DONE:
+	st		X,r16
+	call	TIME_FORMAT
+	call	LINE_PRINT
+	pop		r18
+	pop		r16
+	pop		ZL
+	pop		ZH
+	pop		XL
+	pop		XH
+	out		SREG,r17
+	pop		r17
+	reti
+	
 TIMER_INIT:
 	ldi		r16,(1<<WGM12)|(1<<CS12)
 	sts		TCCR1B,r16
@@ -76,62 +140,15 @@ MEM_WRITE_CLK:
 	st		X+,r20
 	ldi		r20,$09			
 	st		X+,r20
-	ldi		r20,$04			
-	st		X+,r20
 	ldi		r20,$05			
 	st		X+,r20
-	clr		r20
+	ldi		r20,$06			
+	st		X+,r20
+	ldi		r20,0
+	st		X+,r20
 	ret
 
-TIME_TICK:
-	ldi		XH,HIGH(TIME+5)
-	ldi		XL,LOW(TIME+5)
-	push	r17
-	in		r17,SREG
-TICK_SEC:
-	ld		r16,X
-	inc		r16
-	cpi		r16,10
-	brne	TICK_DONE
-	clr		r16				
-	st		X,r16
-	ld		r16,-X
-	inc		r16
-	cpi		r16,6
-	brne	TICK_DONE
-	clr		r16				
-	st		X,r16
-	ld		r16,-X
-	inc		r16
-	cpi		r16,10
-	brne	TICK_DONE
-	clr		r16				
-	st		X,r16
-	ld		r16,-X
-	inc		r16
-	cpi		r16,6
-	brne	TICK_DONE
-	clr		r16				
-	st		X,r16
-	ld		r16,-X
-	inc		r16
-	cpi		r16,4
-	brne	TICK_DONE
-	clr		r16				
-	st		X,r16
-	ld		r16,-X
-	inc		r16
-	cpi		r16,3
-	brne	TICK_DONE
-	clr		r16
-	st		X,r16
-TICK_DONE:
-	st		X,r16
-	call	TIME_FORMAT
-	call	LINE_PRINT
-	out		SREG,r17
-	pop		r17
-	reti
+
 TIME_FORMAT:
 	ldi		XH,HIGH(TIME)
 	ldi		XL,LOW(TIME)
