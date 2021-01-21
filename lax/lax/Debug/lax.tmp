@@ -1,0 +1,85 @@
+<ASSEMBLER_INFO>
+ <VERSION>2.1.57</VERSION>
+ <DEVICE>"ATmega328P"</DEVICE>
+ <WORKING_DIR>C:\Users\Benni\Documents\Atmel Studio\6.2\lax\lax\Debug</WORKING_DIR>
+ <INCLUDE_PATH>
+  <DIR>C:\Program Files (x86)\Atmel\Atmel Toolchain\AVR Assembler\Native\2.1.1175\avrassembler\Include</DIR>
+  <DIR></DIR>
+ </INCLUDE_PATH>
+ <SOURCE_FILE>C:\Users\Benni\Documents\Atmel Studio\6.2\lax\lax\lax.asm</SOURCE_FILE>
+ <INCLUDED_FILES>
+  <FILE>C:\Program Files (x86)\Atmel\Atmel Toolchain\AVR Assembler\Native\2.1.1175\avrassembler\Include\m328Pdef.inc</FILE>
+ </INCLUDED_FILES>
+ <OBJECT_FILES>
+  <FILE>C:\Users\Benni\Documents\Atmel Studio\6.2\lax\lax\Debug/lax.obj</FILE>
+ </OBJECT_FILES>
+ <HEX_FILES>
+  <FILE>lax.hex</FILE>
+ </HEX_FILES>
+ <OUTPUT_FILES>
+  <FILE>lax.map</FILE>
+  <FILE>lax.lss</FILE>
+ </OUTPUT_FILES>
+ <LABELS>
+  <CUR_POS><FILE>C:\Users\Benni\Documents\Atmel Studio\6.2\lax\lax\lax.asm</FILE><LINE>10</LINE></CUR_POS>
+  <AST_COUNT><FILE>C:\Users\Benni\Documents\Atmel Studio\6.2\lax\lax\lax.asm</FILE><LINE>11</LINE></AST_COUNT>
+  <LINE><FILE>C:\Users\Benni\Documents\Atmel Studio\6.2\lax\lax\lax.asm</FILE><LINE>12</LINE></LINE>
+  <INIT><FILE>C:\Users\Benni\Documents\Atmel Studio\6.2\lax\lax\lax.asm</FILE><LINE>15</LINE></INIT>
+  <MEM_INIT><FILE>C:\Users\Benni\Documents\Atmel Studio\6.2\lax\lax\lax.asm</FILE><LINE>261</LINE></MEM_INIT>
+  <WAIT><FILE>C:\Users\Benni\Documents\Atmel Studio\6.2\lax\lax\lax.asm</FILE><LINE>345</LINE></WAIT>
+  <PORT_INIT><FILE>C:\Users\Benni\Documents\Atmel Studio\6.2\lax\lax\lax.asm</FILE><LINE>315</LINE></PORT_INIT>
+  <BACKLIGHT_ON><FILE>C:\Users\Benni\Documents\Atmel Studio\6.2\lax\lax\lax.asm</FILE><LINE>307</LINE></BACKLIGHT_ON>
+  <FOURBIT_INIT><FILE>C:\Users\Benni\Documents\Atmel Studio\6.2\lax\lax\lax.asm</FILE><LINE>336</LINE></FOURBIT_INIT>
+  <DISP_CONFIG><FILE>C:\Users\Benni\Documents\Atmel Studio\6.2\lax\lax\lax.asm</FILE><LINE>324</LINE></DISP_CONFIG>
+  <STAR_INIT><FILE>C:\Users\Benni\Documents\Atmel Studio\6.2\lax\lax\lax.asm</FILE><LINE>34</LINE></STAR_INIT>
+  <MAIN><FILE>C:\Users\Benni\Documents\Atmel Studio\6.2\lax\lax\lax.asm</FILE><LINE>29</LINE></MAIN>
+  <KEY_READ><FILE>C:\Users\Benni\Documents\Atmel Studio\6.2\lax\lax\lax.asm</FILE><LINE>155</LINE></KEY_READ>
+  <UPDATE_STARS><FILE>C:\Users\Benni\Documents\Atmel Studio\6.2\lax\lax\lax.asm</FILE><LINE>40</LINE></UPDATE_STARS>
+  <LCD_HOME><FILE>C:\Users\Benni\Documents\Atmel Studio\6.2\lax\lax\lax.asm</FILE><LINE>292</LINE></LCD_HOME>
+  <LCD_ASCII><FILE>C:\Users\Benni\Documents\Atmel Studio\6.2\lax\lax\lax.asm</FILE><LINE>119</LINE></LCD_ASCII>
+  <DEC_STARS><FILE>C:\Users\Benni\Documents\Atmel Studio\6.2\lax\lax\lax.asm</FILE><LINE>51</LINE></DEC_STARS>
+  <INC_STARS><FILE>C:\Users\Benni\Documents\Atmel Studio\6.2\lax\lax\lax.asm</FILE><LINE>56</LINE></INC_STARS>
+  <CLEAR_STARS><FILE>C:\Users\Benni\Documents\Atmel Studio\6.2\lax\lax\lax.asm</FILE><LINE>74</LINE></CLEAR_STARS>
+  <STARS_DONE><FILE>C:\Users\Benni\Documents\Atmel Studio\6.2\lax\lax\lax.asm</FILE><LINE>79</LINE></STARS_DONE>
+  <DELETE_STARS><FILE>C:\Users\Benni\Documents\Atmel Studio\6.2\lax\lax\lax.asm</FILE><LINE>66</LINE></DELETE_STARS>
+  <WRITE_STARS><FILE>C:\Users\Benni\Documents\Atmel Studio\6.2\lax\lax\lax.asm</FILE><LINE>61</LINE></WRITE_STARS>
+  <STEP_BACK><FILE>C:\Users\Benni\Documents\Atmel Studio\6.2\lax\lax\lax.asm</FILE><LINE>82</LINE></STEP_BACK>
+  <LCD_ERASE><FILE>C:\Users\Benni\Documents\Atmel Studio\6.2\lax\lax\lax.asm</FILE><LINE>302</LINE></LCD_ERASE>
+  <LCD_COMMAND><FILE>C:\Users\Benni\Documents\Atmel Studio\6.2\lax\lax\lax.asm</FILE><LINE>124</LINE></LCD_COMMAND>
+  <LINE_PRINT><FILE>C:\Users\Benni\Documents\Atmel Studio\6.2\lax\lax\lax.asm</FILE><LINE>89</LINE></LINE_PRINT>
+  <LCD_PRINT><FILE>C:\Users\Benni\Documents\Atmel Studio\6.2\lax\lax\lax.asm</FILE><LINE>95</LINE></LCD_PRINT>
+  <GET_CHAR><FILE>C:\Users\Benni\Documents\Atmel Studio\6.2\lax\lax\lax.asm</FILE><LINE>102</LINE></GET_CHAR>
+  <LCD_WRITE4><FILE>C:\Users\Benni\Documents\Atmel Studio\6.2\lax\lax\lax.asm</FILE><LINE>106</LINE></LCD_WRITE4>
+  <LCD_WRITE8><FILE>C:\Users\Benni\Documents\Atmel Studio\6.2\lax\lax\lax.asm</FILE><LINE>113</LINE></LCD_WRITE8>
+  <LCD_COL><FILE>C:\Users\Benni\Documents\Atmel Studio\6.2\lax\lax\lax.asm</FILE><LINE>129</LINE></LCD_COL>
+  <BACK><FILE>C:\Users\Benni\Documents\Atmel Studio\6.2\lax\lax\lax.asm</FILE><LINE>138</LINE></BACK>
+  <FORWARD><FILE>C:\Users\Benni\Documents\Atmel Studio\6.2\lax\lax\lax.asm</FILE><LINE>145</LINE></FORWARD>
+  <LCD_COL_DONE><FILE>C:\Users\Benni\Documents\Atmel Studio\6.2\lax\lax\lax.asm</FILE><LINE>151</LINE></LCD_COL_DONE>
+  <KEY><FILE>C:\Users\Benni\Documents\Atmel Studio\6.2\lax\lax\lax.asm</FILE><LINE>165</LINE></KEY>
+  <KEY_WAIT_FOR_PRESS><FILE>C:\Users\Benni\Documents\Atmel Studio\6.2\lax\lax\lax.asm</FILE><LINE>159</LINE></KEY_WAIT_FOR_PRESS>
+  <ADC_READ8><FILE>C:\Users\Benni\Documents\Atmel Studio\6.2\lax\lax\lax.asm</FILE><LINE>204</LINE></ADC_READ8>
+  <RIGHT><FILE>C:\Users\Benni\Documents\Atmel Studio\6.2\lax\lax\lax.asm</FILE><LINE>197</LINE></RIGHT>
+  <UP><FILE>C:\Users\Benni\Documents\Atmel Studio\6.2\lax\lax\lax.asm</FILE><LINE>194</LINE></UP>
+  <DOWN><FILE>C:\Users\Benni\Documents\Atmel Studio\6.2\lax\lax\lax.asm</FILE><LINE>191</LINE></DOWN>
+  <LEFT><FILE>C:\Users\Benni\Documents\Atmel Studio\6.2\lax\lax\lax.asm</FILE><LINE>188</LINE></LEFT>
+  <SELECT><FILE>C:\Users\Benni\Documents\Atmel Studio\6.2\lax\lax\lax.asm</FILE><LINE>185</LINE></SELECT>
+  <IDLE><FILE>C:\Users\Benni\Documents\Atmel Studio\6.2\lax\lax\lax.asm</FILE><LINE>182</LINE></IDLE>
+  <KEYDONE><FILE>C:\Users\Benni\Documents\Atmel Studio\6.2\lax\lax\lax.asm</FILE><LINE>200</LINE></KEYDONE>
+  <CONVERT><FILE>C:\Users\Benni\Documents\Atmel Studio\6.2\lax\lax\lax.asm</FILE><LINE>209</LINE></CONVERT>
+  <ADC_BUSY><FILE>C:\Users\Benni\Documents\Atmel Studio\6.2\lax\lax\lax.asm</FILE><LINE>213</LINE></ADC_BUSY>
+  <SWITCH_BACKLIGHT><FILE>C:\Users\Benni\Documents\Atmel Studio\6.2\lax\lax\lax.asm</FILE><LINE>220</LINE></SWITCH_BACKLIGHT>
+  <SWITCH_DONE><FILE>C:\Users\Benni\Documents\Atmel Studio\6.2\lax\lax\lax.asm</FILE><LINE>231</LINE></SWITCH_DONE>
+  <OFF><FILE>C:\Users\Benni\Documents\Atmel Studio\6.2\lax\lax\lax.asm</FILE><LINE>228</LINE></OFF>
+  <ON><FILE>C:\Users\Benni\Documents\Atmel Studio\6.2\lax\lax\lax.asm</FILE><LINE>225</LINE></ON>
+  <BACKLIGHT_OFF><FILE>C:\Users\Benni\Documents\Atmel Studio\6.2\lax\lax\lax.asm</FILE><LINE>310</LINE></BACKLIGHT_OFF>
+  <LCD_PRINT_HEX><FILE>C:\Users\Benni\Documents\Atmel Studio\6.2\lax\lax\lax.asm</FILE><LINE>235</LINE></LCD_PRINT_HEX>
+  <FORMAT><FILE>C:\Users\Benni\Documents\Atmel Studio\6.2\lax\lax\lax.asm</FILE><LINE>240</LINE></FORMAT>
+  <DONE><FILE>C:\Users\Benni\Documents\Atmel Studio\6.2\lax\lax\lax.asm</FILE><LINE>258</LINE></DONE>
+  <NUMHEX><FILE>C:\Users\Benni\Documents\Atmel Studio\6.2\lax\lax\lax.asm</FILE><LINE>254</LINE></NUMHEX>
+  <NEXT><FILE>C:\Users\Benni\Documents\Atmel Studio\6.2\lax\lax\lax.asm</FILE><LINE>251</LINE></NEXT>
+  <MEM_WRITE_LINE><FILE>C:\Users\Benni\Documents\Atmel Studio\6.2\lax\lax\lax.asm</FILE><LINE>281</LINE></MEM_WRITE_LINE>
+  <D_3><FILE>C:\Users\Benni\Documents\Atmel Studio\6.2\lax\lax\lax.asm</FILE><LINE>347</LINE></D_3>
+  <D_2><FILE>C:\Users\Benni\Documents\Atmel Studio\6.2\lax\lax\lax.asm</FILE><LINE>349</LINE></D_2>
+  <D_1><FILE>C:\Users\Benni\Documents\Atmel Studio\6.2\lax\lax\lax.asm</FILE><LINE>351</LINE></D_1>
+ </LABELS>
+</ASSEMBLER_INFO>

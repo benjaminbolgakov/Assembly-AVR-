@@ -22,41 +22,41 @@
  </OUTPUT_FILES>
  <LABELS>
   <INIT><FILE>C:\Users\Benni\Documents\Atmel Studio\6.2\lab3\lab3\lab3.asm</FILE><LINE>23</LINE></INIT>
-  <TIME_TICK><FILE>C:\Users\Benni\Documents\Atmel Studio\6.2\lab3\lab3\lab3.asm</FILE><LINE>44</LINE></TIME_TICK>
+  <TIME_TICK><FILE>C:\Users\Benni\Documents\Atmel Studio\6.2\lab3\lab3\lab3.asm</FILE><LINE>40</LINE></TIME_TICK>
   <CTR_LIM><FILE>C:\Users\Benni\Documents\Atmel Studio\6.2\lab3\lab3\lab3.asm</FILE><LINE>14</LINE></CTR_LIM>
   <TIME><FILE>C:\Users\Benni\Documents\Atmel Studio\6.2\lab3\lab3\lab3.asm</FILE><LINE>17</LINE></TIME>
   <LINE><FILE>C:\Users\Benni\Documents\Atmel Studio\6.2\lab3\lab3\lab3.asm</FILE><LINE>19</LINE></LINE>
-  <MEM_INIT><FILE>C:\Users\Benni\Documents\Atmel Studio\6.2\lab3\lab3\lab3.asm</FILE><LINE>113</LINE></MEM_INIT>
-  <TIME_FORMAT><FILE>C:\Users\Benni\Documents\Atmel Studio\6.2\lab3\lab3\lab3.asm</FILE><LINE>152</LINE></TIME_FORMAT>
-  <WAIT><FILE>C:\Users\Benni\Documents\Atmel Studio\6.2\lab3\lab3\lab3.asm</FILE><LINE>262</LINE></WAIT>
-  <PORT_INIT><FILE>C:\Users\Benni\Documents\Atmel Studio\6.2\lab3\lab3\lab3.asm</FILE><LINE>234</LINE></PORT_INIT>
-  <BACKLIGHT_ON><FILE>C:\Users\Benni\Documents\Atmel Studio\6.2\lab3\lab3\lab3.asm</FILE><LINE>226</LINE></BACKLIGHT_ON>
-  <FOURBIT_INIT><FILE>C:\Users\Benni\Documents\Atmel Studio\6.2\lab3\lab3\lab3.asm</FILE><LINE>253</LINE></FOURBIT_INIT>
-  <DISP_CONFIG><FILE>C:\Users\Benni\Documents\Atmel Studio\6.2\lab3\lab3\lab3.asm</FILE><LINE>241</LINE></DISP_CONFIG>
-  <TIMER_INIT><FILE>C:\Users\Benni\Documents\Atmel Studio\6.2\lab3\lab3\lab3.asm</FILE><LINE>102</LINE></TIMER_INIT>
-  <MAIN><FILE>C:\Users\Benni\Documents\Atmel Studio\6.2\lab3\lab3\lab3.asm</FILE><LINE>40</LINE></MAIN>
-  <TIME_LOOP><FILE>C:\Users\Benni\Documents\Atmel Studio\6.2\lab3\lab3\lab3.asm</FILE><LINE>57</LINE></TIME_LOOP>
-  <CONTROL><FILE>C:\Users\Benni\Documents\Atmel Studio\6.2\lab3\lab3\lab3.asm</FILE><LINE>68</LINE></CONTROL>
-  <TICK><FILE>C:\Users\Benni\Documents\Atmel Studio\6.2\lab3\lab3\lab3.asm</FILE><LINE>80</LINE></TICK>
-  <CLEAR><FILE>C:\Users\Benni\Documents\Atmel Studio\6.2\lab3\lab3\lab3.asm</FILE><LINE>84</LINE></CLEAR>
-  <TICK_DONE><FILE>C:\Users\Benni\Documents\Atmel Studio\6.2\lab3\lab3\lab3.asm</FILE><LINE>88</LINE></TICK_DONE>
-  <LINE_PRINT><FILE>C:\Users\Benni\Documents\Atmel Studio\6.2\lab3\lab3\lab3.asm</FILE><LINE>180</LINE></LINE_PRINT>
-  <MEM_WRITE_LINE><FILE>C:\Users\Benni\Documents\Atmel Studio\6.2\lab3\lab3\lab3.asm</FILE><LINE>124</LINE></MEM_WRITE_LINE>
-  <MEM_WRITE_CLK><FILE>C:\Users\Benni\Documents\Atmel Studio\6.2\lab3\lab3\lab3.asm</FILE><LINE>134</LINE></MEM_WRITE_CLK>
-  <TIME_WRITE_NMB><FILE>C:\Users\Benni\Documents\Atmel Studio\6.2\lab3\lab3\lab3.asm</FILE><LINE>160</LINE></TIME_WRITE_NMB>
-  <DONE><FILE>C:\Users\Benni\Documents\Atmel Studio\6.2\lab3\lab3\lab3.asm</FILE><LINE>173</LINE></DONE>
-  <TIME_WRITE_COL><FILE>C:\Users\Benni\Documents\Atmel Studio\6.2\lab3\lab3\lab3.asm</FILE><LINE>175</LINE></TIME_WRITE_COL>
-  <LCD_HOME><FILE>C:\Users\Benni\Documents\Atmel Studio\6.2\lab3\lab3\lab3.asm</FILE><LINE>216</LINE></LCD_HOME>
-  <LCD_PRINT><FILE>C:\Users\Benni\Documents\Atmel Studio\6.2\lab3\lab3\lab3.asm</FILE><LINE>186</LINE></LCD_PRINT>
-  <GET_CHAR><FILE>C:\Users\Benni\Documents\Atmel Studio\6.2\lab3\lab3\lab3.asm</FILE><LINE>192</LINE></GET_CHAR>
-  <LCD_ASCII><FILE>C:\Users\Benni\Documents\Atmel Studio\6.2\lab3\lab3\lab3.asm</FILE><LINE>206</LINE></LCD_ASCII>
-  <LCD_WRITE4><FILE>C:\Users\Benni\Documents\Atmel Studio\6.2\lab3\lab3\lab3.asm</FILE><LINE>195</LINE></LCD_WRITE4>
-  <LCD_WRITE8><FILE>C:\Users\Benni\Documents\Atmel Studio\6.2\lab3\lab3\lab3.asm</FILE><LINE>201</LINE></LCD_WRITE8>
-  <LCD_COMMAND><FILE>C:\Users\Benni\Documents\Atmel Studio\6.2\lab3\lab3\lab3.asm</FILE><LINE>210</LINE></LCD_COMMAND>
-  <LCD_ERASE><FILE>C:\Users\Benni\Documents\Atmel Studio\6.2\lab3\lab3\lab3.asm</FILE><LINE>222</LINE></LCD_ERASE>
-  <BACKLIGHT_OFF><FILE>C:\Users\Benni\Documents\Atmel Studio\6.2\lab3\lab3\lab3.asm</FILE><LINE>229</LINE></BACKLIGHT_OFF>
-  <D_3><FILE>C:\Users\Benni\Documents\Atmel Studio\6.2\lab3\lab3\lab3.asm</FILE><LINE>264</LINE></D_3>
-  <D_2><FILE>C:\Users\Benni\Documents\Atmel Studio\6.2\lab3\lab3\lab3.asm</FILE><LINE>266</LINE></D_2>
-  <D_1><FILE>C:\Users\Benni\Documents\Atmel Studio\6.2\lab3\lab3\lab3.asm</FILE><LINE>268</LINE></D_1>
+  <MEM_INIT><FILE>C:\Users\Benni\Documents\Atmel Studio\6.2\lab3\lab3\lab3.asm</FILE><LINE>109</LINE></MEM_INIT>
+  <TIME_FORMAT><FILE>C:\Users\Benni\Documents\Atmel Studio\6.2\lab3\lab3\lab3.asm</FILE><LINE>148</LINE></TIME_FORMAT>
+  <WAIT><FILE>C:\Users\Benni\Documents\Atmel Studio\6.2\lab3\lab3\lab3.asm</FILE><LINE>258</LINE></WAIT>
+  <PORT_INIT><FILE>C:\Users\Benni\Documents\Atmel Studio\6.2\lab3\lab3\lab3.asm</FILE><LINE>230</LINE></PORT_INIT>
+  <BACKLIGHT_ON><FILE>C:\Users\Benni\Documents\Atmel Studio\6.2\lab3\lab3\lab3.asm</FILE><LINE>222</LINE></BACKLIGHT_ON>
+  <FOURBIT_INIT><FILE>C:\Users\Benni\Documents\Atmel Studio\6.2\lab3\lab3\lab3.asm</FILE><LINE>249</LINE></FOURBIT_INIT>
+  <DISP_CONFIG><FILE>C:\Users\Benni\Documents\Atmel Studio\6.2\lab3\lab3\lab3.asm</FILE><LINE>237</LINE></DISP_CONFIG>
+  <TIMER_INIT><FILE>C:\Users\Benni\Documents\Atmel Studio\6.2\lab3\lab3\lab3.asm</FILE><LINE>98</LINE></TIMER_INIT>
+  <MAIN><FILE>C:\Users\Benni\Documents\Atmel Studio\6.2\lab3\lab3\lab3.asm</FILE><LINE>37</LINE></MAIN>
+  <TIME_LOOP><FILE>C:\Users\Benni\Documents\Atmel Studio\6.2\lab3\lab3\lab3.asm</FILE><LINE>53</LINE></TIME_LOOP>
+  <CONTROL><FILE>C:\Users\Benni\Documents\Atmel Studio\6.2\lab3\lab3\lab3.asm</FILE><LINE>64</LINE></CONTROL>
+  <TICK><FILE>C:\Users\Benni\Documents\Atmel Studio\6.2\lab3\lab3\lab3.asm</FILE><LINE>76</LINE></TICK>
+  <CLEAR><FILE>C:\Users\Benni\Documents\Atmel Studio\6.2\lab3\lab3\lab3.asm</FILE><LINE>80</LINE></CLEAR>
+  <TICK_DONE><FILE>C:\Users\Benni\Documents\Atmel Studio\6.2\lab3\lab3\lab3.asm</FILE><LINE>84</LINE></TICK_DONE>
+  <LINE_PRINT><FILE>C:\Users\Benni\Documents\Atmel Studio\6.2\lab3\lab3\lab3.asm</FILE><LINE>176</LINE></LINE_PRINT>
+  <MEM_WRITE_LINE><FILE>C:\Users\Benni\Documents\Atmel Studio\6.2\lab3\lab3\lab3.asm</FILE><LINE>120</LINE></MEM_WRITE_LINE>
+  <MEM_WRITE_CLK><FILE>C:\Users\Benni\Documents\Atmel Studio\6.2\lab3\lab3\lab3.asm</FILE><LINE>130</LINE></MEM_WRITE_CLK>
+  <TIME_WRITE_NMB><FILE>C:\Users\Benni\Documents\Atmel Studio\6.2\lab3\lab3\lab3.asm</FILE><LINE>156</LINE></TIME_WRITE_NMB>
+  <DONE><FILE>C:\Users\Benni\Documents\Atmel Studio\6.2\lab3\lab3\lab3.asm</FILE><LINE>169</LINE></DONE>
+  <TIME_WRITE_COL><FILE>C:\Users\Benni\Documents\Atmel Studio\6.2\lab3\lab3\lab3.asm</FILE><LINE>171</LINE></TIME_WRITE_COL>
+  <LCD_HOME><FILE>C:\Users\Benni\Documents\Atmel Studio\6.2\lab3\lab3\lab3.asm</FILE><LINE>212</LINE></LCD_HOME>
+  <LCD_PRINT><FILE>C:\Users\Benni\Documents\Atmel Studio\6.2\lab3\lab3\lab3.asm</FILE><LINE>182</LINE></LCD_PRINT>
+  <GET_CHAR><FILE>C:\Users\Benni\Documents\Atmel Studio\6.2\lab3\lab3\lab3.asm</FILE><LINE>188</LINE></GET_CHAR>
+  <LCD_ASCII><FILE>C:\Users\Benni\Documents\Atmel Studio\6.2\lab3\lab3\lab3.asm</FILE><LINE>202</LINE></LCD_ASCII>
+  <LCD_WRITE4><FILE>C:\Users\Benni\Documents\Atmel Studio\6.2\lab3\lab3\lab3.asm</FILE><LINE>191</LINE></LCD_WRITE4>
+  <LCD_WRITE8><FILE>C:\Users\Benni\Documents\Atmel Studio\6.2\lab3\lab3\lab3.asm</FILE><LINE>197</LINE></LCD_WRITE8>
+  <LCD_COMMAND><FILE>C:\Users\Benni\Documents\Atmel Studio\6.2\lab3\lab3\lab3.asm</FILE><LINE>206</LINE></LCD_COMMAND>
+  <LCD_ERASE><FILE>C:\Users\Benni\Documents\Atmel Studio\6.2\lab3\lab3\lab3.asm</FILE><LINE>218</LINE></LCD_ERASE>
+  <BACKLIGHT_OFF><FILE>C:\Users\Benni\Documents\Atmel Studio\6.2\lab3\lab3\lab3.asm</FILE><LINE>225</LINE></BACKLIGHT_OFF>
+  <D_3><FILE>C:\Users\Benni\Documents\Atmel Studio\6.2\lab3\lab3\lab3.asm</FILE><LINE>260</LINE></D_3>
+  <D_2><FILE>C:\Users\Benni\Documents\Atmel Studio\6.2\lab3\lab3\lab3.asm</FILE><LINE>262</LINE></D_2>
+  <D_1><FILE>C:\Users\Benni\Documents\Atmel Studio\6.2\lab3\lab3\lab3.asm</FILE><LINE>264</LINE></D_1>
  </LABELS>
 </ASSEMBLER_INFO>

@@ -1,16 +1,17 @@
-	
+ 
 	.equ	FN_SET		= 0b00101000			;4-bit mode, 2 line, 5x8 font
 	.equ	DISP_ON		= 0b00001111			;Display on, cursor on, cursor blink
 	.equ	LCD_CLR		= 0b00000001			;Clear display
 	.equ	E_MODE		= 0b00000110			;Increment cursor, no shift		
-
+ 
 	.equ	E			= 1
-
+ 
 .dseg
 CUR_POS:	.byte 1
+AST_COUNT:	.byte 1
 LINE:		.byte 17
 .cseg
-
+ 
 	INIT:
 	ldi		r16,HIGH(RAMEND)
 	out		SPH,r16
@@ -23,57 +24,68 @@ LINE:		.byte 17
 	call	FOURBIT_INIT
 	call	DISP_CONFIG		;Blinking cursor at this point
 	call	WAIT
+	call	STAR_INIT
+ 
 MAIN:
-	call	LINE_UPDATE
-	call	LCD_COL			;Update current column
-	call	SWITCH_BACKLIGHT
-	call	KEY_READ			
+	call	KEY_READ	
+	call	UPDATE_STARS
 	jmp		MAIN
-
-LINE_UPDATE:
-	ldi		ZH,HIGH(LINE)
-	ldi		ZL,LOW(LINE)
-	ldi		XH,HIGH(CUR_POS)
-	ldi		XL,LOW(CUR_POS)
-	ld		r20,X			;Loop index to change data on correct position in LINE
-	andi	r20,0b00011111
-	cpi		r17,3
-	breq	BROWSE_DOWN
-	cpi		r17,4
-	breq	BROWSE_UP
-	jmp		UPDATED
-BROWSE_DOWN:
-	ld		r16,Z+			;Get LINE value from current cursor position
-	dec		r20
-	brpl	BROWSE_DOWN
-	cpi		r16,' '			;Check for lowest bound
-	breq	UPDATED			
-	cpi		r16,'A'
-	breq	UPDATED
+ 
+STAR_INIT:
+	call	LCD_HOME
+	ldi		r16,'*'
+	call	LCD_ASCII
+	ret
+ 
+UPDATE_STARS:
+	ldi		YH,HIGH(AST_COUNT)
+	ldi		YL,LOW(AST_COUNT)
+	ld		r16,Y
+	cpi		r17,2
+	breq	DEC_STARS
+	cpi		r17,5
+	breq	INC_STARS
+	cpi		r17,1
+	breq	CLEAR_STARS
+	jmp		STARS_DONE
+DEC_STARS:
 	dec		r16
-	st		-Z,r16
-	call	LCD_ASCII
-	jmp		UPDATED
-BROWSE_UP:
-	ld		r16,Z+			;Get LINE value from current cursor position
-	dec		r20
-	brpl	BROWSE_UP		
-	cpi		r16,'Z'			;Check for highest bound
-	breq	UPDATED	
-	ldi		r20,' '
-	cpse	r16,r20
-	jmp		NOTEMPTY
-	ldi		r16,$41
-	st		-Z,r16
-	call	LCD_ASCII
-	jmp		UPDATED
-NOTEMPTY:
+	cpi		r16,0
+	brne	DELETE_STARS
+	jmp		STARS_DONE
+INC_STARS:
 	inc		r16
-	st		-Z,r16
+	cpi		r16,7
+	brne	WRITE_STARS
+	jmp		STARS_DONE
+WRITE_STARS:
+	st		Y,r16
+	ldi		r16,'*'	
 	call	LCD_ASCII
-UPDATED:
+	jmp		STARS_DONE
+DELETE_STARS:
+	st		Y,r16
+	call	STEP_BACK
+	ldi		r16,' '
+	call	LCD_ASCII
+	ld		r16,Y
+	call	STEP_BACK
+	jmp		STARS_DONE
+CLEAR_STARS:
+	ldi		r16,1
+	st		Y,r16
+	call	LCD_ERASE
+	call	STAR_INIT
+STARS_DONE:
 	ret
 
+STEP_BACK:
+	ldi		r20,0b10000000	;Load prerequisite instruction form
+	or		r16,r20
+	call	LCD_COMMAND
+	ret
+
+ 
 LINE_PRINT:
 	call	LCD_HOME
 	ldi		ZH,HIGH(LINE)
@@ -86,29 +98,29 @@ LCD_PRINT:
 	cpi		r16,$00			;Determine if the string is empty
 	brne	LCD_PRINT	
 	ret
-
+ 
 GET_CHAR:
 	ld		r16,Z+
 	ret
-
+ 
 LCD_WRITE4:
 	sbi		PORTB,E			
 	out		PORTD,r16		;Output data
 	cbi		PORTB,E			;Signals to LCD that new data is available
 	call	WAIT			
 	ret
-
+ 
 LCD_WRITE8:
 	call	LCD_WRITE4		;Write first 4 bits
 	swap	r16				;Place remaining bits in position
 	call	LCD_WRITE4		;Write remaining 4 bits
 	ret
-
+ 
 LCD_ASCII:
 	sbi		PORTB,0			;Config LCD for ASCII
 	call	LCD_WRITE8
 	ret
-
+ 
 LCD_COMMAND:
 	cbi		PORTB,0			;Config LCD for commands
 	call	LCD_WRITE8
@@ -122,24 +134,24 @@ LCD_COL:
 	cpi		r17,5
 	breq	FORWARD
 	ld		r16,X
-	jmp		LCD_COl_DONE
+	jmp		LCD_COL_DONE
 BACK:
 	ld		r16,X
 	cpi		r16,0b10000000
 	breq	LCD_COL_DONE
 	dec		r16
 	st		X,r16
-	jmp		LCD_COl_DONE
+	jmp		LCD_COL_DONE
 FORWARD:
 	ld		r16,X
 	cpi		r16,0b10001111
 	breq	LCD_COL_DONE
 	inc		r16
 	st		X,r16
-LCD_COl_DONE:
+LCD_COL_DONE:
 	call	LCD_COMMAND
 	ret
-
+ 
 KEY_READ:
 	call	KEY
 	tst		r17
@@ -149,7 +161,7 @@ KEY_WAIT_FOR_PRESS:
 	tst		r17
 	breq	KEY_WAIT_FOR_PRESS
 	ret
-
+ 
 KEY:
 	call	ADC_READ8
 	//Check for RIGHT btn
@@ -187,7 +199,7 @@ RIGHT:
 	jmp		KEYDONE
 KEYDONE:
 	ret
-
+ 
 //Analog-Digital convertion
 ADC_READ8:
 	ldi		r16,(1<<REFS0)|(1<<ADLAR)
@@ -204,7 +216,7 @@ ADC_BUSY:
 	jmp		ADC_BUSY
 	lds		r16,ADCH		;Store result to be processed
 	ret
-
+ 
 SWITCH_BACKLIGHT:
 	cpi		r17,1
 	brne	SWITCH_DONE
@@ -218,7 +230,7 @@ OFF:
 	jmp		SWITCH_DONE
 SWITCH_DONE:
 	ret
-
+ 
 //INPUT: r16
 LCD_PRINT_HEX:
 	ldi		r25,$30			;ASCII index offset 0-9
@@ -245,15 +257,23 @@ NUMHEX:
 	jmp		NEXT
 DONE:
 	ret
-
+ 
 MEM_INIT:
 	ldi		ZH,HIGH(LINE)
 	ldi		ZL,LOW(LINE)
+ 
+	ldi		XH,HIGH(AST_COUNT)
+	ldi		XL,LOW(AST_COUNT)
+	ldi		r16,1
+	st		X,r16
+ 
 	ldi		XH,HIGH(CUR_POS)
 	ldi		XL,LOW(CUR_POS)
 	ldi		r16,0b10000000	;Load prerequisite instruction form
 	st		X,r16			;Store initial cursor position 0
-	ldi		r21,16			;Loop-index LINE
+	ldi		r21,15			;Loop-index LINE
+	ldi		r20,'*'
+	st		Z+,r20
 	ldi		r20,' '
 	call	MEM_WRITE_LINE
 	ret
@@ -261,33 +281,36 @@ MEM_INIT:
 MEM_WRITE_LINE:
 	st		Z+,r20
 	dec		r21
-	;inc		r20				//::::::::::::::::::::::::::::::::::::
 	cpi		r21,0
 	brne	MEM_WRITE_LINE
 	ldi		r20,$00
 	st		Z,r20
 	ldi		r21,6			;Set loop-index	TIME
 	ret
-
+ 
 //Set write-pos at column 0 (home/start pos)
 LCD_HOME:
+	ldi		XH,HIGH(CUR_POS)
+	ldi		XL,LOW(CUR_POS)
+	ldi		r16,0b10000000
+	st		X,r16
 	ldi		r16,0b00000010
 	call	LCD_COMMAND
 	ret
-
+ 
 //Erase the content on screen
 LCD_ERASE:
 	ldi		r16,LCD_CLR
 	call	LCD_COMMAND
 	ret
-
+ 
 BACKLIGHT_ON:
 	sbi		PORTB,2
 	ret
 BACKLIGHT_OFF:
 	cbi		PORTB,2
 	ret
-
+ 
 //Init the ports accordingly
 PORT_INIT:
 	ldi		r16,$FF
@@ -296,7 +319,7 @@ PORT_INIT:
 	ldi		r16,$00
 	out		DDRC,r16
 	ret
-
+ 
 //Configures the display to function according to FN_SET, DISP_ON etc..
 DISP_CONFIG:
 	ldi		r16,FN_SET
@@ -308,7 +331,7 @@ DISP_CONFIG:
 	ldi		r16,E_MODE
 	call	LCD_COMMAND
 	ret
-
+ 
 //Init the display to receive and process 4bit data
 FOURBIT_INIT:
 	ldi		r16,$30
@@ -318,7 +341,7 @@ FOURBIT_INIT:
 	ldi		r16,$20
 	call	LCD_WRITE4
 	ret
-
+ 
 WAIT:
 	ldi		r20,3
 D_3:
@@ -333,3 +356,4 @@ D_1:
 	dec		r20
 	brne	D_3
 	ret
+ 

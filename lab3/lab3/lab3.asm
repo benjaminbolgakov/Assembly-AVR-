@@ -27,9 +27,6 @@ INIT:
 	out		SPL,r16
 	call	MEM_INIT
 	call	TIME_FORMAT
-
-	;call	MAIN
-
 	call	WAIT			;Delay to let LCD start up
 	call	PORT_INIT
 	call	BACKLIGHT_ON	
@@ -38,7 +35,6 @@ INIT:
 	call	TIMER_INIT
 
 MAIN:
-	;call	TIME_TICK
 	jmp		MAIN
 
 TIME_TICK:
@@ -65,7 +61,7 @@ TIME_LOOP:
 	lpm		r18,Z+
 	ld		r16,-X
 	jmp		TIME_LOOP
-CONTROL:
+CONTROL:					;Special case-control for hour-marks of 13 and 23
 	dec		XL
 	ld		r16,X
 	inc		XL
@@ -132,7 +128,7 @@ MEM_WRITE_LINE:
 	ret
 //Writes a starting time into SRAM(TIME)
 MEM_WRITE_CLK:
-	ldi		r20,$02			
+	ldi		r20,$01			
 	st		X+,r20
 	ldi		r20,$03			
 	st		X+,r20

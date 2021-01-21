@@ -1,0 +1,89 @@
+<ASSEMBLER_INFO>
+ <VERSION>2.1.57</VERSION>
+ <DEVICE>"ATmega328P"</DEVICE>
+ <WORKING_DIR>C:\Users\Benni\Documents\Atmel Studio\6.2\ovninglax\ovninglax\Debug</WORKING_DIR>
+ <INCLUDE_PATH>
+  <DIR>C:\Program Files (x86)\Atmel\Atmel Toolchain\AVR Assembler\Native\2.1.1175\avrassembler\Include</DIR>
+  <DIR></DIR>
+ </INCLUDE_PATH>
+ <SOURCE_FILE>C:\Users\Benni\Documents\Atmel Studio\6.2\ovninglax\ovninglax\ovninglax.asm</SOURCE_FILE>
+ <INCLUDED_FILES>
+  <FILE>C:\Program Files (x86)\Atmel\Atmel Toolchain\AVR Assembler\Native\2.1.1175\avrassembler\Include\m328Pdef.inc</FILE>
+ </INCLUDED_FILES>
+ <OBJECT_FILES>
+  <FILE>C:\Users\Benni\Documents\Atmel Studio\6.2\ovninglax\ovninglax\Debug/ovninglax.obj</FILE>
+ </OBJECT_FILES>
+ <HEX_FILES>
+  <FILE>ovninglax.hex</FILE>
+ </HEX_FILES>
+ <OUTPUT_FILES>
+  <FILE>ovninglax.map</FILE>
+  <FILE>ovninglax.lss</FILE>
+ </OUTPUT_FILES>
+ <LABELS>
+  <CUR_POS><FILE>C:\Users\Benni\Documents\Atmel Studio\6.2\ovninglax\ovninglax\ovninglax.asm</FILE><LINE>17</LINE></CUR_POS>
+  <LINE><FILE>C:\Users\Benni\Documents\Atmel Studio\6.2\ovninglax\ovninglax\ovninglax.asm</FILE><LINE>18</LINE></LINE>
+  <TEXT><FILE>C:\Users\Benni\Documents\Atmel Studio\6.2\ovninglax\ovninglax\ovninglax.asm</FILE><LINE>21</LINE></TEXT>
+  <INIT><FILE>C:\Users\Benni\Documents\Atmel Studio\6.2\ovninglax\ovninglax\ovninglax.asm</FILE><LINE>23</LINE></INIT>
+  <MEM_INIT><FILE>C:\Users\Benni\Documents\Atmel Studio\6.2\ovninglax\ovninglax\ovninglax.asm</FILE><LINE>299</LINE></MEM_INIT>
+  <WAIT><FILE>C:\Users\Benni\Documents\Atmel Studio\6.2\ovninglax\ovninglax\ovninglax.asm</FILE><LINE>372</LINE></WAIT>
+  <PORT_INIT><FILE>C:\Users\Benni\Documents\Atmel Studio\6.2\ovninglax\ovninglax\ovninglax.asm</FILE><LINE>342</LINE></PORT_INIT>
+  <BACKLIGHT_ON><FILE>C:\Users\Benni\Documents\Atmel Studio\6.2\ovninglax\ovninglax\ovninglax.asm</FILE><LINE>334</LINE></BACKLIGHT_ON>
+  <FOURBIT_INIT><FILE>C:\Users\Benni\Documents\Atmel Studio\6.2\ovninglax\ovninglax\ovninglax.asm</FILE><LINE>363</LINE></FOURBIT_INIT>
+  <DISP_CONFIG><FILE>C:\Users\Benni\Documents\Atmel Studio\6.2\ovninglax\ovninglax\ovninglax.asm</FILE><LINE>351</LINE></DISP_CONFIG>
+  <MAIN><FILE>C:\Users\Benni\Documents\Atmel Studio\6.2\ovninglax\ovninglax\ovninglax.asm</FILE><LINE>39</LINE></MAIN>
+  <KEY_READ><FILE>C:\Users\Benni\Documents\Atmel Studio\6.2\ovninglax\ovninglax\ovninglax.asm</FILE><LINE>193</LINE></KEY_READ>
+  <PRIME_MEM><FILE>C:\Users\Benni\Documents\Atmel Studio\6.2\ovninglax\ovninglax\ovninglax.asm</FILE><LINE>46</LINE></PRIME_MEM>
+  <LINE_PRINT><FILE>C:\Users\Benni\Documents\Atmel Studio\6.2\ovninglax\ovninglax\ovninglax.asm</FILE><LINE>76</LINE></LINE_PRINT>
+  <PRIME_LEFT><FILE>C:\Users\Benni\Documents\Atmel Studio\6.2\ovninglax\ovninglax\ovninglax.asm</FILE><LINE>54</LINE></PRIME_LEFT>
+  <PRIME_RIGHT><FILE>C:\Users\Benni\Documents\Atmel Studio\6.2\ovninglax\ovninglax\ovninglax.asm</FILE><LINE>64</LINE></PRIME_RIGHT>
+  <PRIME_DONE><FILE>C:\Users\Benni\Documents\Atmel Studio\6.2\ovninglax\ovninglax\ovninglax.asm</FILE><LINE>73</LINE></PRIME_DONE>
+  <LEFT_LOOP><FILE>C:\Users\Benni\Documents\Atmel Studio\6.2\ovninglax\ovninglax\ovninglax.asm</FILE><LINE>57</LINE></LEFT_LOOP>
+  <RIGHT_LOOP><FILE>C:\Users\Benni\Documents\Atmel Studio\6.2\ovninglax\ovninglax\ovninglax.asm</FILE><LINE>67</LINE></RIGHT_LOOP>
+  <LCD_HOME><FILE>C:\Users\Benni\Documents\Atmel Studio\6.2\ovninglax\ovninglax\ovninglax.asm</FILE><LINE>323</LINE></LCD_HOME>
+  <LCD_PRINT><FILE>C:\Users\Benni\Documents\Atmel Studio\6.2\ovninglax\ovninglax\ovninglax.asm</FILE><LINE>82</LINE></LCD_PRINT>
+  <GET_CHAR><FILE>C:\Users\Benni\Documents\Atmel Studio\6.2\ovninglax\ovninglax\ovninglax.asm</FILE><LINE>89</LINE></GET_CHAR>
+  <LCD_ASCII><FILE>C:\Users\Benni\Documents\Atmel Studio\6.2\ovninglax\ovninglax\ovninglax.asm</FILE><LINE>157</LINE></LCD_ASCII>
+  <LINE_UPDATE><FILE>C:\Users\Benni\Documents\Atmel Studio\6.2\ovninglax\ovninglax\ovninglax.asm</FILE><LINE>93</LINE></LINE_UPDATE>
+  <BROWSE_DOWN><FILE>C:\Users\Benni\Documents\Atmel Studio\6.2\ovninglax\ovninglax\ovninglax.asm</FILE><LINE>107</LINE></BROWSE_DOWN>
+  <BROWSE_UP><FILE>C:\Users\Benni\Documents\Atmel Studio\6.2\ovninglax\ovninglax\ovninglax.asm</FILE><LINE>117</LINE></BROWSE_UP>
+  <UPDATED><FILE>C:\Users\Benni\Documents\Atmel Studio\6.2\ovninglax\ovninglax\ovninglax.asm</FILE><LINE>141</LINE></UPDATED>
+  <LOWBOUND><FILE>C:\Users\Benni\Documents\Atmel Studio\6.2\ovninglax\ovninglax\ovninglax.asm</FILE><LINE>127</LINE></LOWBOUND>
+  <HIGHBOUND><FILE>C:\Users\Benni\Documents\Atmel Studio\6.2\ovninglax\ovninglax\ovninglax.asm</FILE><LINE>132</LINE></HIGHBOUND>
+  <NOTEMPTY><FILE>C:\Users\Benni\Documents\Atmel Studio\6.2\ovninglax\ovninglax\ovninglax.asm</FILE><LINE>137</LINE></NOTEMPTY>
+  <LCD_WRITE4><FILE>C:\Users\Benni\Documents\Atmel Studio\6.2\ovninglax\ovninglax\ovninglax.asm</FILE><LINE>144</LINE></LCD_WRITE4>
+  <LCD_WRITE8><FILE>C:\Users\Benni\Documents\Atmel Studio\6.2\ovninglax\ovninglax\ovninglax.asm</FILE><LINE>151</LINE></LCD_WRITE8>
+  <LCD_COMMAND><FILE>C:\Users\Benni\Documents\Atmel Studio\6.2\ovninglax\ovninglax\ovninglax.asm</FILE><LINE>162</LINE></LCD_COMMAND>
+  <LCD_COL><FILE>C:\Users\Benni\Documents\Atmel Studio\6.2\ovninglax\ovninglax\ovninglax.asm</FILE><LINE>167</LINE></LCD_COL>
+  <BACK><FILE>C:\Users\Benni\Documents\Atmel Studio\6.2\ovninglax\ovninglax\ovninglax.asm</FILE><LINE>176</LINE></BACK>
+  <FORWARD><FILE>C:\Users\Benni\Documents\Atmel Studio\6.2\ovninglax\ovninglax\ovninglax.asm</FILE><LINE>183</LINE></FORWARD>
+  <LCD_COl_DONE><FILE>C:\Users\Benni\Documents\Atmel Studio\6.2\ovninglax\ovninglax\ovninglax.asm</FILE><LINE>189</LINE></LCD_COl_DONE>
+  <KEY><FILE>C:\Users\Benni\Documents\Atmel Studio\6.2\ovninglax\ovninglax\ovninglax.asm</FILE><LINE>203</LINE></KEY>
+  <KEY_WAIT_FOR_PRESS><FILE>C:\Users\Benni\Documents\Atmel Studio\6.2\ovninglax\ovninglax\ovninglax.asm</FILE><LINE>197</LINE></KEY_WAIT_FOR_PRESS>
+  <ADC_READ8><FILE>C:\Users\Benni\Documents\Atmel Studio\6.2\ovninglax\ovninglax\ovninglax.asm</FILE><LINE>242</LINE></ADC_READ8>
+  <RIGHT><FILE>C:\Users\Benni\Documents\Atmel Studio\6.2\ovninglax\ovninglax\ovninglax.asm</FILE><LINE>235</LINE></RIGHT>
+  <UP><FILE>C:\Users\Benni\Documents\Atmel Studio\6.2\ovninglax\ovninglax\ovninglax.asm</FILE><LINE>232</LINE></UP>
+  <DOWN><FILE>C:\Users\Benni\Documents\Atmel Studio\6.2\ovninglax\ovninglax\ovninglax.asm</FILE><LINE>229</LINE></DOWN>
+  <LEFT><FILE>C:\Users\Benni\Documents\Atmel Studio\6.2\ovninglax\ovninglax\ovninglax.asm</FILE><LINE>226</LINE></LEFT>
+  <SELECT><FILE>C:\Users\Benni\Documents\Atmel Studio\6.2\ovninglax\ovninglax\ovninglax.asm</FILE><LINE>223</LINE></SELECT>
+  <IDLE><FILE>C:\Users\Benni\Documents\Atmel Studio\6.2\ovninglax\ovninglax\ovninglax.asm</FILE><LINE>220</LINE></IDLE>
+  <KEYDONE><FILE>C:\Users\Benni\Documents\Atmel Studio\6.2\ovninglax\ovninglax\ovninglax.asm</FILE><LINE>238</LINE></KEYDONE>
+  <CONVERT><FILE>C:\Users\Benni\Documents\Atmel Studio\6.2\ovninglax\ovninglax\ovninglax.asm</FILE><LINE>247</LINE></CONVERT>
+  <ADC_BUSY><FILE>C:\Users\Benni\Documents\Atmel Studio\6.2\ovninglax\ovninglax\ovninglax.asm</FILE><LINE>251</LINE></ADC_BUSY>
+  <SWITCH_BACKLIGHT><FILE>C:\Users\Benni\Documents\Atmel Studio\6.2\ovninglax\ovninglax\ovninglax.asm</FILE><LINE>258</LINE></SWITCH_BACKLIGHT>
+  <SWITCH_DONE><FILE>C:\Users\Benni\Documents\Atmel Studio\6.2\ovninglax\ovninglax\ovninglax.asm</FILE><LINE>269</LINE></SWITCH_DONE>
+  <OFF><FILE>C:\Users\Benni\Documents\Atmel Studio\6.2\ovninglax\ovninglax\ovninglax.asm</FILE><LINE>266</LINE></OFF>
+  <ON><FILE>C:\Users\Benni\Documents\Atmel Studio\6.2\ovninglax\ovninglax\ovninglax.asm</FILE><LINE>263</LINE></ON>
+  <BACKLIGHT_OFF><FILE>C:\Users\Benni\Documents\Atmel Studio\6.2\ovninglax\ovninglax\ovninglax.asm</FILE><LINE>337</LINE></BACKLIGHT_OFF>
+  <LCD_PRINT_HEX><FILE>C:\Users\Benni\Documents\Atmel Studio\6.2\ovninglax\ovninglax\ovninglax.asm</FILE><LINE>273</LINE></LCD_PRINT_HEX>
+  <FORMAT><FILE>C:\Users\Benni\Documents\Atmel Studio\6.2\ovninglax\ovninglax\ovninglax.asm</FILE><LINE>278</LINE></FORMAT>
+  <DONE><FILE>C:\Users\Benni\Documents\Atmel Studio\6.2\ovninglax\ovninglax\ovninglax.asm</FILE><LINE>296</LINE></DONE>
+  <NUMHEX><FILE>C:\Users\Benni\Documents\Atmel Studio\6.2\ovninglax\ovninglax\ovninglax.asm</FILE><LINE>292</LINE></NUMHEX>
+  <NEXT><FILE>C:\Users\Benni\Documents\Atmel Studio\6.2\ovninglax\ovninglax\ovninglax.asm</FILE><LINE>289</LINE></NEXT>
+  <MEM_WRITE_LINE><FILE>C:\Users\Benni\Documents\Atmel Studio\6.2\ovninglax\ovninglax\ovninglax.asm</FILE><LINE>311</LINE></MEM_WRITE_LINE>
+  <LCD_ERASE><FILE>C:\Users\Benni\Documents\Atmel Studio\6.2\ovninglax\ovninglax\ovninglax.asm</FILE><LINE>329</LINE></LCD_ERASE>
+  <D_3><FILE>C:\Users\Benni\Documents\Atmel Studio\6.2\ovninglax\ovninglax\ovninglax.asm</FILE><LINE>374</LINE></D_3>
+  <D_2><FILE>C:\Users\Benni\Documents\Atmel Studio\6.2\ovninglax\ovninglax\ovninglax.asm</FILE><LINE>376</LINE></D_2>
+  <D_1><FILE>C:\Users\Benni\Documents\Atmel Studio\6.2\ovninglax\ovninglax\ovninglax.asm</FILE><LINE>378</LINE></D_1>
+ </LABELS>
+</ASSEMBLER_INFO>

@@ -1,3 +1,10 @@
+/*
+ * ovninglax.asm
+ *
+ *  Created: 2020-12-31 15:01:54
+ *   Author: Benni
+ */ 
+
 	
 	.equ	FN_SET		= 0b00101000			;4-bit mode, 2 line, 5x8 font
 	.equ	DISP_ON		= 0b00001111			;Display on, cursor on, cursor blink
@@ -8,8 +15,11 @@
 
 .dseg
 CUR_POS:	.byte 1
+AST_POS:	.byte 1
 LINE:		.byte 17
 .cseg
+
+TEXT:		.db	"Cody's Lab",0
 
 	INIT:
 	ldi		r16,HIGH(RAMEND)
@@ -17,61 +27,54 @@ LINE:		.byte 17
 	ldi		r16,LOW(RAMEND)
 	out		SPL,r16
 	call	MEM_INIT
+
+	;jmp		MAIN
+	;ldi		r17,5
+	;jmp		PRIME_MEM
+
 	call	WAIT			;Delay to let LCD start up
 	call	PORT_INIT
 	call	BACKLIGHT_ON	
 	call	FOURBIT_INIT
 	call	DISP_CONFIG		;Blinking cursor at this point
 	call	WAIT
+
 MAIN:
-	call	LINE_UPDATE
-	call	LCD_COL			;Update current column
-	call	SWITCH_BACKLIGHT
-	call	KEY_READ			
+	;ldi		r17,5
+	;call	LINE_PRINT	
+	call	KEY	
+	call	PRIME_MEM
 	jmp		MAIN
 
-LINE_UPDATE:
-	ldi		ZH,HIGH(LINE)
-	ldi		ZL,LOW(LINE)
-	ldi		XH,HIGH(CUR_POS)
-	ldi		XL,LOW(CUR_POS)
-	ld		r20,X			;Loop index to change data on correct position in LINE
-	andi	r20,0b00011111
-	cpi		r17,3
-	breq	BROWSE_DOWN
-	cpi		r17,4
-	breq	BROWSE_UP
-	jmp		UPDATED
-BROWSE_DOWN:
-	ld		r16,Z+			;Get LINE value from current cursor position
-	dec		r20
-	brpl	BROWSE_DOWN
-	cpi		r16,' '			;Check for lowest bound
-	breq	UPDATED			
-	cpi		r16,'A'
-	breq	UPDATED
+PRIME_MEM:
+	ldi		XH,HIGH(AST_POS)
+	ldi		XL,LOW(AST_POS)
+	ld		r16,X
+	cpi		r17,2
+	breq	PRIME_LEFT
+	cpi		r17,5
+	breq	PRIME_RIGHT
+	jmp		PRIME_DONE
+PRIME_LEFT:
 	dec		r16
-	st		-Z,r16
-	call	LCD_ASCII
-	jmp		UPDATED
-BROWSE_UP:
-	ld		r16,Z+			;Get LINE value from current cursor position
-	dec		r20
-	brpl	BROWSE_UP		
-	cpi		r16,'Z'			;Check for highest bound
-	breq	UPDATED	
-	ldi		r20,' '
-	cpse	r16,r20
-	jmp		NOTEMPTY
-	ldi		r16,$41
-	st		-Z,r16
-	call	LCD_ASCII
-	jmp		UPDATED
-NOTEMPTY:
+	cpi		r16,$FF
+	brne	WRITE_AST
+	ldi		r16,15
+	jmp		WRITE_AST
+PRIME_RIGHT:
 	inc		r16
-	st		-Z,r16
+	cpi		r16,16
+	brne	WRITE_AST
+	ldi		r16,0
+	jmp		WRITE_AST
+WRITE_AST:
+	call	LCD_ERASE
+	call	LCD_COL
+	ldi		r16,'*'
 	call	LCD_ASCII
-UPDATED:
+	call	WAITONESEC
+	jmp		PRIME_DONE
+PRIME_DONE:
 	ret
 
 LINE_PRINT:
@@ -89,6 +92,57 @@ LCD_PRINT:
 
 GET_CHAR:
 	ld		r16,Z+
+	ret
+
+LINE_UPDATE:
+	;ldi		r17,3
+
+	ldi		ZH,HIGH(LINE)
+	ldi		ZL,LOW(LINE)
+	ldi		XH,HIGH(CUR_POS)
+	ldi		XL,LOW(CUR_POS)
+	ld		r20,X			;Loop index to change data on correct position in LINE
+	andi	r20,0b00011111
+	cpi		r17,3
+	breq	BROWSE_DOWN
+	cpi		r17,4
+	breq	BROWSE_UP
+	jmp		UPDATED
+BROWSE_DOWN:
+	ld		r16,Z+			;Get LINE value from current cursor position
+	dec		r20
+	brpl	BROWSE_DOWN
+	cpi		r16,'0'			;Check for lowest bound
+	breq	LOWBOUND	
+	dec		r16
+	st		-Z,r16
+	call	LCD_ASCII
+	jmp		UPDATED
+BROWSE_UP:
+	ld		r16,Z+			;Get LINE value from current cursor position
+	dec		r20
+	brpl	BROWSE_UP		
+	cpi		r16,'5'			;Check for highest bound
+	breq	HIGHBOUND	
+	inc		r16
+	st		-Z,r16
+	call	LCD_ASCII
+	jmp		UPDATED
+LOWBOUND:
+	ldi		r16,'5'
+	st		-Z,r16
+	call	LCD_ASCII
+	jmp		UPDATED
+HIGHBOUND:
+	ldi		r16,'0'
+	st		-Z,r16
+	call	LCD_ASCII
+	jmp		UPDATED
+NOTEMPTY:
+	inc		r16
+	st		-Z,r16
+	call	LCD_ASCII
+UPDATED:
 	ret
 
 LCD_WRITE4:
@@ -253,7 +307,13 @@ MEM_INIT:
 	ldi		XL,LOW(CUR_POS)
 	ldi		r16,0b10000000	;Load prerequisite instruction form
 	st		X,r16			;Store initial cursor position 0
-	ldi		r21,16			;Loop-index LINE
+	ldi		XH,HIGH(AST_POS)
+	ldi		XL,LOW(AST_POS)
+	clr		r16
+	st		X,r16
+	ldi		r21,15			;Loop-index LINE
+	ldi		r20,'*'
+	st		Z+,r20
 	ldi		r20,' '
 	call	MEM_WRITE_LINE
 	ret
@@ -317,6 +377,19 @@ FOURBIT_INIT:
 	call	LCD_WRITE4
 	ldi		r16,$20
 	call	LCD_WRITE4
+	ret
+
+;-- One second wait loop
+WAITONESEC:
+	ldi		r18,61
+WAITONESEC_0:
+	clr		r25
+	clr		r24
+WAITONESEC_1:
+	adiw	r24,1
+	brne	WAITONESEC_1
+	dec		r18
+	brne	WAITONESEC_0
 	ret
 
 WAIT:
